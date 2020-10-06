@@ -10,16 +10,16 @@
 
 * What you think can influence your health and wellbeing, so be careful.
 
-* “Circumstance does not make the man; it reveals him to himself”
+* "Circumstance does not make the man; it reveals him to himself"
 
-* “Men do not attract that which they want, but that which they are.”
+* "Men do not attract that which they want, but that which they are."
 
-* “Men are anxious to improve their circumstances, but are unwilling to improve themselves; they therefore remain bound.”
+* "Men are anxious to improve their circumstances, but are unwilling to improve themselves; they therefore remain bound."
 
-* “He who would accomplish little must sacrifice little; he who would achieve much must sacrifice much; he who would attain highly must sacrifice greatly.”
+* "He who would accomplish little must sacrifice little; he who would achieve much must sacrifice much; he who would attain highly must sacrifice greatly."
 
 * Your mind is like a garden. Your thoughts are what you plant. Your actions are what you reap.
 
 * Suffering is always the effect of wrong thought in some direction.
 
-* “As the physically weak man can make himself strong by careful and patient training, so the man of weak thoughts can make them strong by exercising himself in right thinking.”
+* "As the physically weak man can make himself strong by careful and patient training, so the man of weak thoughts can make them strong by exercising himself in right thinking."
