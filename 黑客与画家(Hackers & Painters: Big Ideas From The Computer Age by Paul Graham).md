@@ -21,3 +21,41 @@
 * “最好的文字来自不停的修改”。这句话对软件开发也适用。设计一样东西，最重要的一点就是“再设计”，编程尤其如此，再多修改都不过分。
 
 * 如果你正在设计某种新东西，就应该尽快拿出原型，听取用户的意见。
+
+Fund Manager Assessment System
+• A questionnaire web application for accessing the fund manager's abilities.
+• Tech Stack: Django, React, Bootstrap, PostgreSQL
+
+
+Financial Data Analysis Project
+• Analysis of financial data for machine learning (numpy, pandas, matplotlib)
+
+Forex Pricing System (Java, Spring Stack)
+Introduction
+A Forex market maker system can publish and trade Forex Spot, Forward, and Swap products.
+Core Feature
+Select and combine the best prices from multiple pricing sources, and send the prices to each counterparty after the price adjustment from user settings.
+MAIN CONTRIBUTION
+• Optimal Price Algorithm: Decreased the time complexity of the algorithm from O(n^2) (0/1 knapsack problem) to O(1) (bucket sort).
+• Concurrency Design: Designed elastic thread pools with backpressure and task submit strategy, and able to process prices in time order.
+• Financial Business Logic Development: Value date, volatility, cross currency pair, broken date, and price adjustment development.
+• Refactoring: Lead the team to refactor, upgrade, and optimize performance using Scrum, gradually clear the technical debt.
+• Price API development: Using FIX protocol to get price streaming data from EBS, BOC, and JPM, etc. Then transform them into a unified format.
+
+News Analytics System (Java, Spring, Python, NLP, ML)
+Introduction
+Get financial news and economic indicators from Bloomberg, generate Forex trading signals by news sentiment analysis, and the delta between actual and consensus value of indicators.
+MAIN CONTRIBUTION
+• News Hot Words Analysis: Finetuned SpaCy model, generate more accurate named entities.
+• Word Fuzzy Matching: Implements the Levenshtein Distance Algorithm, aggregate the same words in different formats for better model training.
+• Co-occurrence Word Ranking: Implemented
+co-occurrence matrix algorithm, generated the rankings of words that appear in the same news with the given word.
+• Forex trading signal related business logic development.
+• Coordinate development tasks in a bilingual, distributed team in Shanghai and Singapore.
+
+
+
+OTHER CONTRIBUTION
+• Technical and Financial Knowledge Training: Host the semi-month training course. Share and discuss system design, algorithms, and financial knowledge with team members.
+
+• Internal Tools Development.
