@@ -10,7 +10,7 @@
   * Make your home a profitable investment.
   * Secure your future income.
   * Invest in yourself.
-  *Get luck on your side.
+  * Get luck on your side.
 * The laws of money are like physical laws in the universe, they do not change.
 * “It costs nothing to ask wise advice from a good friend.”
 * Do not take financial advice from a bricklayer. Choose experts in a subject if you want expert advice.
