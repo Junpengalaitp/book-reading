@@ -82,3 +82,43 @@
 * Remove Assignments to Parameters(移除对参数的赋值)
 * Replace Method with Method Object(以函数对象取代函数)
 * Substitute Algorithm(替换算法)
+
+### 第7章 在对象之间搬移特性
+* Move Method(搬移函数)
+  * 如果一个类有太多行为，或者一个类与另一个类有太多合作而形成太多耦合
+* Move Field(搬移字段)
+  * 对于一个字段，在其所在类之外的另一个类中有更多函数使用了它。
+* Extract Class(提炼类)
+  * 含有大量函数和数据，不易理解
+* Inline Class(将类内联化)
+  * 一个类不再有单独存在的理由
+* Hide Delegate(隐藏“委托关系”)
+  * 封装意味着每个对象都尽可能少了解系统的其他部分
+* Remove Middle Man(移除中间人)
+* Introduce Foreign Method(引入外加函数)
+* Introduce Local Extension(引入本地扩展)
+  * 建立一个新类，使它包含这些额外函数。让这个扩展瓶成为源类的子类或者包装类。
+
+### 第8章 重新组织数据
+* Self Encapsulate Field(自封装字段)
+  * 当你想访问超类的一个字段，却又想在子类中将对这个变量的访问改为一个计算后的值。
+* Replace Data Value with Object(以对象取代数据)
+  * 一个数据项，需要与其他数据和行为一起使用才有意义
+* Change Value to Reference(将值对象改为引用对象)
+  * 从一个类衍生出彼此相等的实例，希望将它们替换为同一个对象。
+* Change Reference to Value
+  * 有一个引用对象，很小且不可变，而且不易管理
+* Replace Array with Object(以对象取代数组)
+* Duplicate Observed Data(复制“被监视数据”)
+  * 你有一些领域数据置身于GUI控件中，而领域函数需要访问这些数据。
+* Change Unidirectional Association to Bidirectional(将单向关联改为双向关联)
+* Change Bidirectional Association to Unidirectional
+* Replace Magic Number with Symbolic Constant
+* Encapsulate Field
+* Encapsulate Collection
+  * 让函数返回集合的一个只读副本
+* Replace Record with Data Class(以数据类取代记录)
+* Replace Type Code with Class(以类取代类型码)
+* Replace Type Code with Subclass(以子类取代类型码)
+* Replace Type Code with State/Strategy(以State/Strategy取代类型码)
+* Replace Subclasses with Fields(以字段取代子类)
