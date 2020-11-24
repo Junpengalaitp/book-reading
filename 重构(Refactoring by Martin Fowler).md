@@ -62,3 +62,23 @@
   * 范例(examples)
 * 寻找引用点
 * 这些重构手法有多成熟
+
+### 第六章 重新组织函数
+* Extract Method(提炼函数)
+  * 过长的函数，或者需要注释才能弄懂的代码
+  * 创造一个新函数，根据这个函数的意图来对它命名（依据做什么，而不是怎么做）
+  * 将提炼出的代码从原函数复制到新建的目标函数中
+  * 仔细检查提炼出的代码，看看其中是否有任何局部变量的值被它改变。如果一个临时变量值被修改了，看看是否可以将被提炼代码段处理为一个查询，并将结果赋值给相关变量。
+  * 将被提炼代码段中需要读取的局部变量，当作参数传给目标函数。
+  * 处理完所有局部变量后，进行编译
+  * 在原函数中，将被提炼的代码段替换为被目标函数的调用
+  * 编译，测试。
+* Inline Method(内联函数)
+  * 将这个函数的所有被调用点都替换为函数本体
+* Inline Temp(内联临时变量)
+* Replace Temp with Query(以查询取代临时变量)
+* Introduce Explaining Variable(引入解释性变量)
+* Split Temporary Variable(分解临时变量)
+* Remove Assignments to Parameters(移除对参数的赋值)
+* Replace Method with Method Object(以函数对象取代函数)
+* Substitute Algorithm(替换算法)
