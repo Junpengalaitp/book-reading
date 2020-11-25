@@ -122,3 +122,9 @@
 * Replace Type Code with Subclass(以子类取代类型码)
 * Replace Type Code with State/Strategy(以State/Strategy取代类型码)
 * Replace Subclasses with Fields(以字段取代子类)
+
+# 第9章 简化条件表达式
+* Decompose Conditional(分解条件表达式)
+  * 从if, else, then 提炼出独立函数
+* Consolidate Conditional Expression(合并条件表达式)
+  * 将if测试串合并为一个条件表达式
