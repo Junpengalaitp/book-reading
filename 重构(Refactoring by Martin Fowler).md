@@ -128,3 +128,57 @@
   * 从if, else, then 提炼出独立函数
 * Consolidate Conditional Expression(合并条件表达式)
   * 将if测试串合并为一个条件表达式
+* Consolidate Duplicate Conditional Fragments(合并重复的条件片段)
+  * 在条件表达式的每个分支上有着相同的一段代码
+  * 将这段重复代码搬移到条件表达式外
+* Remove Control Flag(移除控制标记)
+  * 以break或return语句取代控制标记
+* Replace Nested Conditional with Guard Clauses(以卫语句取代嵌套条件表达式)
+* Replace Conditional with Polymorphism(以多态取代条件表达式)
+* Introduce Null Object(引入Null对象)
+* Introduce Assertion(引入断言)
+
+# 第10章 简化函数调用
+* Rename Method
+* Add Parameter
+* Remove Parameter
+* Separate Query from Modifier(将查询函数和修改函数分离)
+* Parameterize Method(令函数携带参数)
+* Replace Parameter with Explicit Methods(以明确函数取代参数)
+* Preserve Whole Object(保存对象完整)
+* Replace Parameter with Methods(以函数取代参数)
+* Introduce Parameter Object(引入参数对象)
+* Remove Setting Method(移除设值函数)
+* Hide Method(隐藏函数)
+* Replace Constructor with Factory Method
+* Encapsulate Downcast(封装向下转型)
+* Replace Error Code with Exception(以异常取代错误码)
+* Replace Exception with Test(以测试取代异常)
+
+### 第11章 处理概括关系
+* Pull Up Field(字段上移)
+* Pull Up Method(函数上移)
+* Pull up Constructor Body(构造函数本体上移)
+* Push Down Method(函数下移)
+* Push Down Field(字段下移)
+* Extract Subclass(提炼子类)
+* Extract Superclass(提炼超类)
+* Extract Interface(提炼接口)
+* Collapse Hierarchy(折叠继承关系)
+* Form Template Method(塑造模版函数)
+  * 一些子类中相应的某些函数以相同顺序执行类似操作，但各个操作的细节上有所不同
+  * 将这些操作分别放入独立函数中，并保持它们都有相同的签名，于是原函数也就变得相同了。然后将原函数上移至超类
+* Replace Inheritance with Delegation
+  * 某个子类只使用超类接口的一部分，或者是根本不需要继承来的数据
+  * 在子类中新建一个field保存超类，调整子类使其委托超类，然后去掉两者间的继承关系。
+* Replace Delegation with Inheritance(以继承取代委托)
+
+### 第12章 大型重构
+* Tease Apart Inheritance(梳理并分解继承体系)
+  * 某个继承体系同时承担两项责任
+  * 建立两个继承体系，并通过委托关系让其中一个可以调用另一个
+* Convert Procedural Design to Objects(将过程化设计转化为对象设计)
+* Separate Domain from Presentation(将领域和表述/显示分离)
+* Extract Hierarchy(提炼继承体系)
+  * 某个类做了太多工作，其中一部分工作是以大量条件表达式完成的
+  * 建立继承体系，以一个子类表示一种特殊情况
