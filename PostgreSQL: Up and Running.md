@@ -61,3 +61,65 @@
     * SELECT pg_cancel_backend(1234);
   * 终止该连接
     * SELECT pg_terminate_backend(1234);
+
+* 角色
+  * 可登录角色
+    * 拥有登陆数据库权限的角色
+  * 组角色
+    * 拥有成员角色的角色
+
+* 备份与恢复
+  * pg_dump
+    * 支持精确到表的备份，适合每日备份
+  * pg_dumpall
+    * 全局备份，只支持SQL格式
+  * pg_basebackup
+
+* 禁止的行为
+  * 不要删除PostgreSQL系统文件
+  * 不要把操作系统管理员权限授予PostgreSQL的系统账号
+  * 不要把shared_buffers缓存区设置的过大
+  * 不要将PostgreSQL服务器的侦听端口设为一个已被其他程序占用的端口
+
+* 第五章 数据类型
+* 数值类型
+  * serial类型
+    * 序列自身是一个数据库资产
+    * 多表共享同一个现存的序列号生成器
+      * CREATE SEQUENCE s START 1;
+      * CREATE TABLE stuff(id bigint default nextval('s') PRIMARY KEY, name text);
+  * 文本类型
+    * char
+    * varchar
+    * text
+  * 字符串函数
+    * 填充
+      * lpad
+      * rpad
+    * 修整空白
+      * rtrim
+      * ltrim
+      * trim
+      * btrim
+    * 提取子串
+      * substring
+    * 连接
+      * ｜｜
+  * 将字符串拆分为数组、表或者子串
+    * split_part
+    * unnest
+  * 正则和模式匹配
+
+* 时间类型
+  * date
+    * 仅存储月、日、年，没有时区、小时、分和秒的信息
+  * time
+    * 仅存储小时、分和秒，没有时区和日期信息
+  * timestamp
+    * 月、日、年、小时、分和秒，没有时区
+  * timestampz
+    * 月、日、年、小时、分和秒，有时区
+    * 以UTC标准时间储存，当查询显示时，会根据服务器的时区进行转换
+
+* 数组类型
+  *  
