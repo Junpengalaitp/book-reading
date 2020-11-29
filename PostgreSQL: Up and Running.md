@@ -291,3 +291,43 @@
   * 散列索引
     * 某些场景中比B-树更快
   * 基于B-树算法的GiST和GIN索引
+
+* 多列索引
+  * CREATE INDEX idx ON subscribers
+    USING btree(type, upper(name) varchar_pattern_ops)
+  * 位图索引扫描
+    * 多个单列索引同时发挥作用，效果与使用单个符合索引相同
+    * 不确定的情况下，针对每个单列做一个索引，规划器会决定如何组合使用这些索引
+    * 如果查询条件字段没有从多列索引的第一个字段开始匹配，规划器也能用上索引，但尽量避免这种情况，因为从索引的第一个字段开始匹配才是最高效的
+
+### 第七章 PostgreSQL的特色SQL语法
+
+### 第九章 查询性能调优
+* 通过EXPLAIN命令查看语句执行计划
+  * EXPLAIN
+    * 输出执行计划，不执行SQL本身
+  * EXPLAIN ANALYZE 
+    * 执行SQL, 并且将实际执行计划进行对比分析
+  * EXPLAIN VERBOSE
+    * 使输出的执行计划步骤精确到列级别
+  * EXPLAIN ANALYZE BUFFERS
+    * 显示执行计划中重用缓存数据时的命中次数
+* 收集语句的执行统计信息
+  * 开启pg_stat_statements性能监控扩展包
+* 编写更好的SQL语句
+  * 不要滥用SELECT子查询
+* 避免使用SELECT * 语法
+* 善用CASE语法
+* 使用Filter语法替代CASE语法
+* 并行化语句执行
+  * dynamic_shared_memory不允许设置none
+  * max_worker_process需要设置大于0
+  * max_parallel_workers需要设置大于0，并且小于max_worker_process
+  * max_parallel_workers_per_gather需要设置为大于0并且小于等于max_worker_process，并且小于等于max_parallel_workers
+* 并行化扫描
+* 并行化关联操作
+* 人工干预规划器生成执行计划的过程
+* 数据缓存机制
+
+### 第十章 复制与外部数据
+  
