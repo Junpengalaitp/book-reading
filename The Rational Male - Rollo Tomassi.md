@@ -2,7 +2,7 @@ This is one of the essential books all men should read to understand female natu
 
 The book mostly focuses on dispelling the “blue pilled” fallacy of the romantic, fairy tale ideals of love and relationships Here are some important points:
 
-* There is no “the one.” The soulmate myth is a destructive one that produces oneitis.
+* There is no “the one.” The soulmate myth is a destructive one that produces one it is.
 * Do not obsess over a single woman. No woman is so special that she’s the only one for you.
 * Power in a relationship goes to the individual who needs the other the least.
 * Just be yourself is terrible advice. Instead, grow and become something better.
@@ -36,4 +36,4 @@ The book mostly focuses on dispelling the “blue pilled” fallacy of the roman
   * Women are incapable of loving a man the way he expects
   * Develop new relationships, don’t fix broken ones
   * Never help a woman figure out why she won’t fuck you
-  * Neve self-deprecate
+  * Never self-deprecate
