@@ -218,7 +218,145 @@
 * spec.schedule: "0,15,30,45 * * * *"
 
 ## 5 服务：让客户端发现pod并与之通信
+* 为什么需要服务
+  * pod是短暂的
+  * 客户端不能提前知道提供服务的pod的IP地址
+  * 水平伸缩意味着多个pod提供相同的服务
+### 5.1 介绍服务
+* 一种为一组功能相同的pod提供单一不变的接入点资源。
+* 客户端不必知道pod的地址
+  
+#### 5.1.1 创建服务
+* 通过kubectl expose
+* 通过yaml
+* 从集群内部测试服务
+  * pod的ip是集群内部地址，只能在集群内部访问
+  * 创建一个pod，它将请求发送到服务的集群IP并记录相应。可以通过pod日志检查响应。
+  * 使用ssh远程登陆到一个k8s节点上使用curl。
+  * 通过kubectl exec在已存在的pod中执行curl。
+* 在运行的容器中远程执行命令
+  * kubectl exec mypod -- curl -s http://localhost:8080/health
+  * 双横杠--代表kubectl命令项的结束。之后是pod内部需要执行的命令
+* 配置服务上的会话亲和性
+  * 多次执行同样的命令，每次会执行在随机的pod上
+  * 特定客户端的请求每次都指向同一个pod：设置spec.sessionAffinity: ClientIP
+* 同一服务暴露多个端口
+  * spec.ports 配置多个
+* 使用命名的端口
+  * 在服务中的port可以使用pod定义的containerPort的name
+* 在pod中运行shell
+  * kubectl exec -it mypod -- bash
+#### 5.1.2 服务发现
+* 通过环境变量发现服务
+  * kubectl exec mypod env
+* 通过DNS发现服务
+* 通过FQDN发现服务
 
+
+#### 5.2 连接集群外部的服务
+#### 5.2.1 endpoint
+* 服务并不和pod直接相连，它们中间有endpoint
+* endpoint暴露一个服务的IP和端口列表
+#### 5.2.2 手动配置服务的endpoint
+* 创建没有选择器的服务
+  * spec里面没有选择器
+* 为没有选择器的服务创建Endpoint资源
+
+#### 5.2.3 为外部服务创建别名
+
+#### 5.3 将服务暴露给外部客户端
+* NodePort
+  * 集群节点在节点本身上打开一个端口，并将在该端口上接收到的流量重定向到基础服务。
+  * 该服务仅在内部集群IP和端口上才可访问，但也可以通过所有节点上的专用端口访问
+* LoadBalancer
+  * NodePort的一种扩展，使得服务可以通过一个专用的负载均衡器来访问，这是由Kubernetes中正在运行的云基础设施提供的。
+  * LoadBalancer将流量重定向到跨所有节点的节点端口。
+  * 客户端通过负载均衡器的IP连接到服务
+* 创建一个Ingress资源
+  * 一个完全不同的机制，通过一个IP地址公开多个服务，它运行在HTTP层（网络协议第7层）上，因此可以提供比工作在第四层的服务更多的功能。
+
+#### 5.3.1 使用NodePort类型的服务
+#### 5.3.2 使用LoadBalancer类型的服务
+* 通过负载均衡器连接服务
+  * 会话亲和性和Web浏览器
+    * 每次浏览器访问会遇到同一个pod，即使sessionAffinity设置为None
+    * 浏览器使用keep-alive连接，并通过单个连接发送所有请求，而curl每次会打开一个新的连接
+  
+#### 5.3.3 了解外部连接的特性
+* 了解防止不必要的网络跳数
+  * 随机选择的pod不一定在service所在节点上，需要额外的网络跳转
+  * 在服务中设置spec.externalTrafficPolicy: Local
+  * 这样服务会选择本地的pod，如果没有本地pod，连接会被挂起，需确保本地至少有一个pod
+* 记住客户端IP是不记录的
+  * 后端的pod无法看到实际客户端的ip
+
+### 5.4 通过Ingress暴露服务
+* 为什么需要Ingress
+  * 每个LB需要自己的负载均衡器，以及独立的公网地址，而Ingress只需要一个公网IP就能为许多服务提供访问。
+  * Ingress会更加请求的主机名和路径决定请求的转发服务
+* Ingress Controller是必不可少的
+  * 只有Ingress Controller在集群中运行，Ingress才能正常工作。
+
+#### 5.4.1 创建Ingress资源
+
+#### 5.4.2 通过Ingress访问服务
+* 获取Ingress的IP地址
+* 确保Ingress中配置的Host指向Ingress的IP地址
+* 通过Ingress访问pod
+* 了解Ingress的工作原理
+  * 客户端首先对域名进行DNS查找，DNS服务返回了Ingress控制器的IP.
+  * 客户端项Ingress控制器发送Http请求，并在Host请求头中指定该域名。
+  * 控制器从该头部确定客户端尝试访问哪个服务，通过与该服务关联的Endpoint对象查看pod IP, 并将客户端的请求转发给其中一个pod。
+  * Ingress Controller不会将请求转发给该服务，只用它来选择一个pod。
+
+#### 5.4.3 通过同一个Ingress访问多个服务
+* 将不同的服务映射到相同主机的不同路径
+  * spec.host.http.paths下设置多个path
+* 将不同的服务映射到不同主机上
+  * spec.rules下设置多个host
+
+#### 5.4.4 配置Ingress处理TLS传输以支持HTTPS
+* 为Ingress创建TLS认证
+  * 需要将证书和私钥附加到Ingress，这两个必须资源存储在Secret资源中，然后在Ingress manifest中引用它
+
+### 5.5 pod就绪后发出信号
+* 如果pod没有准备好，不希望服务立刻转发请求给它
+
+#### 5.5.1 介绍就绪探针
+* 就绪探测会定期调用，并确定特定的pod是否接收客户端的请求。
+* 类型
+  * Exec
+  * HTTP GET 
+  * TCP socket
+* 了解就绪探针的操作
+  * 启动容器时，可以为Kubernetes配置一个等待时间，经过等待时间后才可以执行第一次准备就绪检查。
+  * 之后它会周期性的探测，根据结果采取行动。
+  * 与存活探针不同，如果检测不通过，不会终止或重启。
+
+#### 5.5.2 向pod添加就绪探针
+* spec.template.spec.containers.readinessProbe
+
+#### 5.5.3 了解就绪探针的实际作用
+* 务必定义就绪探针
+  * 如果没有将就绪探针添加到pod中，它们计划会立即成为服务端点。如果应用启动比较慢，请求会被转发到未启动完成的pod，返回连接被拒绝的错误。
+* 不需要将停止pod的逻辑纳入就绪探针中
+  * 只要删除该pod, k8s会从所有服务中移除该pod
+### 5.6 使用headless服务来发现独立的pod
+* 客户端需要连接到所有的pod，或者后端的pod需要连接到所有其它pod
+* Kubernetes运行通过DNS查找发现pod IP
+#### 5.6.1 创建headless服务
+* 将spec.clusterIP设为None
+
+### 5.7 排查服务故障
+* 如果无法通过服务访问pod
+  * 确保从集群内连接到服务的集群IP，而不是外部。
+  * 不要通过ping服务IP来判断，服务的集群IP是虚拟IP，无法ping通。
+  * 如果以及定义了就绪探针，确保它返回成功。
+  * 确认某个pod是服务的一部分，使用kubectl get endpoints来检查。
+  * 如果通过FQDN或其中一部分来访问，检查是否可以用集群IP访问成功。
+  * 检查是否连接到服务的公开端口，而不是目标端口。
+  * 尝试直接连接到pod IP以确认pod正在接收正确端口上的连接。
+  * 如果甚至无法通过pod IP来访问，请确保应用不是仅绑定到本地主机。
 ## 6 卷：将磁盘挂载到容器
 
 ## 7 ConfigMap和Secret: 配置应用程序
