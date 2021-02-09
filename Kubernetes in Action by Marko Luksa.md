@@ -1,4 +1,4 @@
-### 1 Kubernetes介绍
+## 1 Kubernetes介绍
 * 大型的单体应用正在被分解成小的、可独立运行的微服务，彼此之间解耦，所以它们可以被独立开部署、升级、伸缩。
 * k8s使开发者可以自主部署应用，并且控制部署的频率，完全脱离运维团队的帮助。
 * 同时让运维团队监控整个系统，并且在硬件故障时重新调度应用。
@@ -32,7 +32,7 @@
   * 自动扩容
   * 简化应用部署
 
-### 2 开始使用Kubernetes和Docker
+## 2 开始使用Kubernetes和Docker
 * Pod
   * 一组紧密相关的容器，总是一起运行在同一个工作节点上，以及同一个Linux命名空间中。相反，它使用多个共存容器的理念。
   * 每个pod像一个独立的逻辑机器，拥有自己的IP、主机名、进程等，运行一个独立的应用程序。
@@ -66,7 +66,7 @@
   * 查看应用运行在哪个节点上
     * kubectl get pods -o wide
 
-### 3 pod：运行于k8s中的容器
+## 3 pod：运行于k8s中的容器
   * 为何需要pod
     * 多个容器比单容器多进程好
   * 了解pod
@@ -126,32 +126,121 @@
       * kubectl delete all --all
 
 
-### 4 副本机制和其它控制器：部署托管的pod
+## 4 副本机制和其它控制器：部署托管的pod
+### 4.1 保持pod健康
+* 只要将pod调度到某个节点，该节点上得到Kubelet就会运行pod的容器，从此只要该pod存在，就会保持运行。如果该容器的主进程崩溃，Kubelet将重启容器。如果应用中有个导致它每隔一段时间就崩溃的Bug, Kubernetes会自动重启应用程序。
+* 即使进程没有崩溃，有时应用程序也会停止正常工作，例如Java的OOM，或者有无限循环和死锁，进程会一直运行。
+* 为确保应用在这类情况下可以重启，必须从外部检查其运行状况。
+#### 4.1.1 介绍存活探针
+* Kubernetes可以使用liveness probe检查容器是否还在运行。如果探测失败，Kubernetes将定期执行探针并重启容器。
+* 三种探测容器的机制
+  * HTTP GET: 如果返回错误或者无响应，会被认为失败，容器将被重新启动
+  * TCP套接字： 尝试与容器指定端口建立TCP连接
+  * Exec探针：在容器内执行任意命令，如果返回状态码非0，就认为失败
+  
+#### 4.1.2 HTTP存活探针
+* yaml: spec.containers.livenessProbe.httpGet
+  
+#### 4.1.3 使用存活探针
+* 获取容器崩溃日志：kubectl logs mypod --previous
+* 通过kubectl describe来了解为什么重启容器
+* 当容器被强行终止时，会创建一个全新的容器，而不是重启原来的容器
 
-### 5 服务：让客户端发现pod并与之通信
+#### 4.1.4 配置存活探针的附加属性
+* delay: 容器启动后多长时间开始探测
+* timeout: 必须在多长时间内返回响应
+* period: 间隔多长时间探测一次
+* initialDelaySeconds: 初始延时
+* 退出码
+  * 137: 进程被外部信号终止(SIGKILL, 128 + 9)
+  * 143(SIGTERM, 128 + 15)
 
-### 6 卷：将磁盘挂载到容器
+#### 4.1.5 创建有效的存活探针
+* 对于在生产环境运行的pod，一定要定义一个存活探针。没有探针的话，Kubernetes无法直到你的应用是否还活着。
+* 存活探针应该检查什么
+  * 将探针配置为请求特定的URL路径（/health）
+  * 让应用从内部运行的所有重要组件执行状态检查
+  * 确保/health路径不需要认证
+  * 一定要检查应用内部，没有任何外部因素影响。例如前端因为数据库挂掉返回失败，重启前端不会有任何作用。
+* 保持探针轻量
+  * 如果运行Java程序，确保使用Http探针，因为使用Exec探针启动全新JVM非常耗时
+* 无须在探针中实现重试循环
+  * 探针的失败阈值是可配置的，并且通常在容器被终止之前探针必须失败多次。
+  * 即使将阈值设为1，Kubernetes为了确认一次探测失败，会尝试若干次。
+* 存活探针小结
+  * 容器崩溃或探测失败后，该节点上的kubelet会重启容器保持运行，主节点的Kubernetes Control Plane组件不会参与此过程。
+  * 如果节点本身崩溃，无法执行任何操作，所以需要ReplicationController或类似机制管理pod
 
-### 7 ConfigMap和Secret: 配置应用程序
+### 4.2 了解ReplicationController
+* ReplicationController是一种K8s资源，可以确保pod始终保持运行状态。如果pod因为任何原因消失，ReplicationController会注意到并创建替代pod。
+#### 4.2.1 ReplicationController的操作
+* ReplicationController的操作会持续监控正在运行的pod列表，并保证相应“类型”的pod数目与期望相符，少增多删。
+* ReplicationController的三个部分
+  * label selector: 确定ReplicationController的作用域里有哪些pod。
+  * replica count: 应运行的pod数量。
+  * pod template: 拥有创建新的pod副本。
+* 更改控制器的标签选择器或pod模版的效果
+  * 对现有pod没有影响
+  * 更改标签选择器会使现有pod脱离ReplicationController的管理范围
+* 使用ReplicationController的好处
+  * 确保pods持续运行
+  * 集群节点发生故障时，它将为故障节点上运行的所有受它管理的pod创建替代副本
+  * 能轻松实现pod的水平伸缩
+  * pod的实例永远不会被安置到另一个节点，相反，ReplicationController会创建一个全新的pod，它与正在替换的实例无关。
+#### 4.2.2 创建一个ReplicationController
 
-### 8 从应用访问pod元数据以及其他资源
+### 4.3 使用ReplicaSet代替ReplicationController
+* 新一代的ReplicationController, 用来完全代替ReplicationController
+* 通常不会直接创建它，而是创建在更高层级的Deployment资源
 
-### 9 Deployment: 声明式地升级应用
+#### 4.3.1 比较ReplicaSet和ReplicationController
+* 行为完全相同，但是ReplicaSet的标签选择器功能更强
+  * 可匹配多个标签
+  * 可匹配不符的标签
 
-### 10 StatefulSet: 部署有状态的多副本应用
+### 4.4 使用DaemonSet在每个节点上运行一个pod
+* 用例：在每个节点上部署一个日志搜集器和监控器
+#### 4.4.2 使用DaemonSet在特定节点上运行一个pod
+* 通过pod模版中的nodeSelector
+### 4.5 运行执行单个任务的pod
+* 运行完成工作后就终止任务的情况
+#### 4.5.1 Job资源
+* pod内部进程成功结束时，不重启容器。一旦任务完成，pod就被认为处于完成状态。
+* 在发生节点故障时，会按照replicaSet的模式安排到其他节点。
+* 如果进程本身异常退出，可以将Job配置为重启容器
+#### 4.5.2 定义Job资源
+* kind: Job
+* spec.template.spec.restartPolicy: onFailure
 
-### 11 了解Kubernetes机理
+### 4.6 安排Job定期运行或者将来运行一次
+#### 4.6.1 CronJob
+* kind: CronJob
+* spec.schedule: "0,15,30,45 * * * *"
 
-### 12 Kubernetes API服务器的安全防护
+## 5 服务：让客户端发现pod并与之通信
 
-### 13 保障集群内节点和网络安全
+## 6 卷：将磁盘挂载到容器
 
-### 14 计算资源管理
+## 7 ConfigMap和Secret: 配置应用程序
 
-### 15 自动横向伸缩pod与集群节点
+## 8 从应用访问pod元数据以及其他资源
 
-### 16 高级调度
+## 9 Deployment: 声明式地升级应用
 
-### 17 开发应用的最佳实践
+## 10 StatefulSet: 部署有状态的多副本应用
 
-### 18 Kubernetes应用扩展
+## 11 了解Kubernetes机理
+
+## 12 Kubernetes API服务器的安全防护
+
+## 13 保障集群内节点和网络安全
+
+## 14 计算资源管理
+
+## 15 自动横向伸缩pod与集群节点
+
+## 16 高级调度
+
+## 17 开发应用的最佳实践
+
+## 18 Kubernetes应用扩展
