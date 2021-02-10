@@ -358,6 +358,85 @@
   * 尝试直接连接到pod IP以确认pod正在接收正确端口上的连接。
   * 如果甚至无法通过pod IP来访问，请确保应用不是仅绑定到本地主机。
 ## 6 卷：将磁盘挂载到容器
+* 在某些场景下，我们可能希望新的容器可以在之前容器结束的位置继续运行，比如在物理机上重启进程。可能不需要整个文件系统被持久化，但又希望能保存实际数据的目录。
+### 6.1 介绍卷（volume）
+* Kubernetes的volume是pod的一个组成部分，因此像容器一样在pod规范中定义。
+* volume不是独立的Kubernetes对象，不能单独创建或删除。
+* pod中所有容器都可以使用volume，但必须先将它挂载在每个需要访问它的容器中。
+
+#### 6.1.1 volume的应用示例
+#### 6.1.2 volume的类型
+* emptyDir: 用于存储临时数据的简单空目录。
+* hostPath: 用于将目录从工作节点的文件系统挂载到pod中。
+* gitRepo: 通过检出Git仓库的内容来初始化volume。
+* nfs: 挂载到pod的NFS共享volume。
+* configMap, secret, downwardAPI: 用于将Kubernetes部分资源和集群信息公开给pod的特殊volume。
+* persistentVolumeClaim: 一种使用预置或者动态配置的持久存储类型。
+* awsElasticBlockStore, azureDisk, gcePersistentDisk: 用于挂载云服务商提供的特定存储类型。
+* cinder, cephfs, iscsi, flocker, glusterfs, quobyte, rbd, flexVolume, vsphere-Volume, photoPersistentDisk, scaleIO: 用于挂载其它类型的网络存储。
+
+### 6.2 通过volume在容器之间共享数据
+#### 6.2.1 使用emptyDir卷
+* 从一个空目录开始，运行在pod内的应用可以写入它需要的任何文件。
+* 因为volume的生命周期和pod关联，删除pod后volume的内容会消失。
+* 可用于同一个pod中的多个容器共享数据。
+* 也可以被单个容器用于将数据临时写入磁盘，例如超大数据集的排序。
+
+#### 6.2.2 使用Git仓库作为存储卷
+* 基本上也是一个emptyDir volume, 它通过克隆Git仓库并在pod启动时（创建容器之前），检出特定的版本来填充数据。
+* 并不能和repo保持同步，但如果这个pod由ReplicaSet管理，删除这个pod后创建的新pod包括最新版本。
+
+### 6.3 访问工作节点文件系统上的文件
+* 大多数的pod应该忽略它们的主机节点，因此它们不应该访问节点文件系统上的任何文件。
+* 某些系统级别的pod，通常由DeamonSet管理，确实需要读取节点的文件或者使用节点的文件系统。通过hostPath volume可以实现
+
+#### 6.3.1 介绍hostPath volume
+* 指向文件系统上的特定文件或目录。
+* 在同一个节点上运行并在其hostPath卷中使用相同路径的pod可以看到相同的文件。
+* hostPath是持久化的，不像emptyDir或Git类型会随着pod的删除而消失。
+* 会使pod对节点规划很敏感，如果数据库pod被安排到另一个节点，会找不到数据。
+
+#### 6.3.2 检查使用hostPath卷的系统pod
+
+### 6.4 使用持久化存储
+* 如果存储数据的pod可以随意分配到任意节点，需要借助某种类型的网络存储。
+* 使用NFS volume: 集群运行在一组自有服务器上时。
+
+### 6.5 从底层存储解耦pod
+* 理想的情况是，在Kubernetes上部署应用程序的开发人员不需要知道底层使用的是哪种存储技术。
+#### 6.5.1 PersistentVolume & PersistentVolumeClaim
+* 开发人员无须像它们的pod添加特定类型的volume，而是由集群管理员设置底层存储，然后通过Kubernetes API服务器创建PV并注册。
+* 当用户需要在其pod中使用持久化存储时，他们首先创建PersistentVolumeClaim清单，指定所需要的最低容量和访问模式。然后提交到Kubernetes API服务器，Kubernetes将找到可匹配的持久卷并将其绑定到持久卷声明。
+#### 6.5.2 创建PersistentVolume
+* 容量需求
+* 单节点或多节点
+* 只读或可写
+* 如何处理被删除的绑定
+* 实际存储类型、位置和其它属性
+* 不属于任何ns
+
+#### 6.5.3 创建PersistentVolumeClaim
+* PVC状态
+  * RWO: ReadWriteOnce
+  * ROW: ReadOnlyMany
+  * RWX: ReadWriteMany
+  
+#### 6.5.4 在pod中使用PersistentVolumeClaim
+
+#### 6.5.5 PV和PVC的好处
+* 对于开发人员更简单
+* 不依赖特定技术设施
+
+#### 6.5.6 回收PV
+* 手动回收
+  * 设置为Retain，删除和重新创建PV
+* 自动回收
+  * Recycle: 删除volume的内容并可再被用于PVC
+  * Delete: 删除底层存储。
+
+### 6.6 持久卷的动态卷配置
+#### 6.1.1 通过StorageClass资源定义可用存储类型
+#### 6.1.2 请求PersistentVolumeClaim的存储
 
 ## 7 ConfigMap和Secret: 配置应用程序
 
