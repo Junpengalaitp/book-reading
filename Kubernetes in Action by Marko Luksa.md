@@ -439,7 +439,98 @@
 #### 6.1.2 请求PersistentVolumeClaim的存储
 
 ## 7 ConfigMap和Secret: 配置应用程序
+### 7.1 配置容器化应用程序
+* 无论是否使用ConfigMap, 以下方法都可以用作配置应用
+  * 向容器命令行传递参数
+  * 为每个容器设置自定义环境变量
+  * 通过特殊类型的volume将配置文件挂载到文件中
+### 7.2 向容器传递命令行参数
+* Kubernetes可在pod的容器中定义并覆盖命令以满足运行不同的可执行程序。
+#### 7.2.1 在Docker中定义命令与参数
+* 了解ENTRYPOINT与CMD
+  * ENTRYPOINT定义容器启动时被调用的可执行程序
+  * CMD指定传递给ENTRYPOINT的参数
+  * 正确的做法是借助ENTRYPOINT指令，仅仅用CMD指定所需的默认参数，这样景象可以直接使用docker run \<image> 运行，无须添加参数
+* shell与exec形式的区别
+  * shell形式: ENTRYPOINT node app.js
+  * exec形式: ENTRYPOINT ["node", "app.js"]
+  * 区别在于指定的命令是否在shell中被调用
+  * shell进程往往是多余的，因此通常可以直接采用exec形式。
 
+#### 7.2.2 在Kubernetes中覆盖命令和参数
+* 镜像的ENTRYPOINT和CMD均可被覆盖，只需在容器定义中设置属性command和args的值。
+* spec.containers.command/args
+
+### 7.3 为容器设置环境变量
+* 容器化应用通常会使用环境变量作为配置源
+* Kubernetes允许为pod中的每个容器都指定自定义的环境变量集合
+#### 7.3.1 在容器中定义中指定环境变量
+* spec.containers.env.-name
+* spec.containers.env.value
+* Java: System.getenv()
+* Python: os.environ[]
+
+#### 7.3.2 在环境变量中引用其他环境变量
+* 使用$(VAR)语法
+
+#### 7.3.3 hard coded环境变量的不足
+* 为了能在多个环境复用pod的定义，需要将配置从pod定义描述解耦出来。
+* 使用ConfigMap资源，用valueFrom代替value字段
+
+### 7.4 利用ConfigMap解耦配置
+#### 7.4.1 ConfigMap介绍
+* 本质上就是一个Key/Value pair
+* app无须直接读取ConfigMap，甚至不需要知道其是否存在。映射的内容通过环境变量或者volume形式传递给容器，而并非直接传递给容器。
+* 也可以通过Kubernetes Rest API按需直接读取，但除非需求如此，应尽可能使你的应用保持对Kubernetes的无感知。
+* 不同环境(dev/test/prod ns)可以使用同名ConfigMap
+
+#### 7.4.2 ConfigMap创建
+* kubectl create cm
+* 使用yaml
+* 从文件内容创建
+* 从文件夹创建
+* 合并不同的创建方式
+
+#### 7.4.3 给容器传递ConfigMap条目作为环境变量
+* spec.containers.env.valueFrom.configMapKeyRef.name/key
+* 在pod中引用不存在的ConfigMap
+  * K8s会正常调度pod并尝试运行所有的容器，但是引用不存在的ConfigMap的容器会启动失败。如果之后创建了正确的ConfigMap，失败容器会自动启动，无须重新创建pod。
+* 可以标记对ConfigMap的引用是可选的
+  * spec.containers.env.valueFrom.configMapKeyRef.optional: true
+
+#### 7.4.4 一次性传递ConfigMap的所有条目作为环境变量
+* spec.containers.envFrom.-prefix
+
+#### 7.4.5 传递ConfigMap条目作为命令行参数
+* 在pod.spec.containers.args中无法直接引用ConfigMap的条目。
+* 可以利用ConfigMap条目初始化某个环境变量，然后再在参数字段中引用
+* 在pod.spec.containers.args: ["$(ConfigMapKey)"]
+
+#### 7.4.6 使用ConfigMap volume将目录暴露为文件
+* pod.spec.containers.volumeMounts
+* pod.spec.volumes
+* 仅挂载指定条目到特定文件
+  * pod.spec.containers.volumeMounts.subPath
+
+#### 7.4.7 更新配置且不重启应用
+* 将ConfigMap暴露为volume可以达到配置热更新的效果。
+* ConfigMap更新后，volume中引用它的所有文件也会相应更新。
+
+### 7.5 使用Secret给容器传递敏感数据
+#### 7.5.1 介绍Secret
+* 使用方法和ConfigMap相同
+* Kubernetes通过仅将Secret分发到需要的pod所在节点来保障其安全性
+* 只存在于内存中，永不写入物理存储
+
+#### 7.5.2 介绍默认Token Secret
+#### 7.5.3 创建Secret
+#### 7.5.4 对比ConfigMap和Secret
+* Secret的条目内容会被Base64格式编码，ConfigMap直接以文本展示
+* Secret的大小上限为1M
+* Secret通过stringData字段设置条目的纯文本值
+* 在pod中读取Secret会自动解码
+
+#### 7.5.5 在pod中使用Secret 
 ## 8 从应用访问pod元数据以及其他资源
 
 ## 9 Deployment: 声明式地升级应用
