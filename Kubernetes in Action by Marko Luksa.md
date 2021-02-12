@@ -532,7 +532,36 @@
 
 #### 7.5.5 在pod中使用Secret 
 ## 8 从应用访问pod元数据以及其他资源
+### 8.1 通过Downward API传递元数据
+* pod创建前不能知道的数据：IP，host，pod名称等
+* Downward API允许我们通过环境变量或者文件(在downward API卷中)传递pod元数据。
+* 这种方式主要是将在pod定义和状态中取得的数据作为环境变量和文件的值。
+#### 8.1.1 了解可用的元数据
+* pod的名称
+* pod的IP
+* pod所在的namespace
+* pod所在的节点名称
+* pod运行所归属的服务账户名称
+* 每个容器请求的CPU和内存使用量
+* 每个容器可以使用的CPU和内存限制
+* pod标签
+* pod注解
+#### 8.1.2 通过环境变量暴露元数据
+* spec.containers.env.valueFrom.fieldRef.fieldPath
+#### 8.1.3 通过downwardAPI v暴露元数据
 
+### 8.2 与Kubernetes API服务器交互
+* 集群中pod之外的信息
+#### 8.2.1 探究Kubernetes REST API
+* kubectl cluster-info
+* 通过kubectl proxy访问API服务器
+
+#### 8.2.2 从pod内部与API服务器交互
+* 三件事情
+  * 确定API服务器的位置
+  * 确保是与API服务器进行交互，而不是一个冒名者
+  * 通过服务器的认证，否则不能查看任何内容以及进行任何操作
+#### 8.2.3 通过ambassador容器简化与API服务器交互
 ## 9 Deployment: 声明式地升级应用
 
 ## 10 StatefulSet: 部署有状态的多副本应用
