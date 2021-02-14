@@ -563,7 +563,73 @@
   * 通过服务器的认证，否则不能查看任何内容以及进行任何操作
 #### 8.2.3 通过ambassador容器简化与API服务器交互
 ## 9 Deployment: 声明式地升级应用
+### 9.1 更新运行在pod内的应用
+* pod创建后，不允许直接修改镜像，只能通过删除原有pod并使用新的镜像创建新的pod替换。
+* 两种方法
+  * 直接删除现有所有pod，然后创建新的pod。
+  * 创建新的pod，等待它们运行成功后，再删除旧的pod。
+    * 可以先创建所有新的pod，然后一次性删除所有旧pod。
+    * 按顺序一一创建新pod替换旧pod。
+  * 第一种方法会导致你的程序在一定时间内不可用
+  * 第二种方法你的应用需要支持两个版本同时服务。
+#### 9.1.1 删除旧pod，使用新pod替换
+* 修改ReplicationController的镜像，然后删除旧的pod，它会检测到当前没有pod匹配它的标签选择器，便会创建新的实例。
+#### 9.1.1 创建新的pod，再删除旧的pod
+* 需要更多的硬件资源，实现稍微复杂
+* 从旧版本立即切换到新版本
+  * pod通常通过Service来暴露。在运行新版本的pod之前，Service只将流量切换到初始版本的pod。一旦新版本的pod被创建并且运行正常之后，就可以修改服务的标签选择器并将service的流量切换到新的pod。
+* 执行滚动升级操作
+### 9.2 使用ReplicationController实现自动的滚动升级
+#### 9.2.1 运行第一个版本的应用
+#### 9.2.2 使用kubectl来执行滚动式升级
+* 使用同样的Tag推送更新过的镜像
+  * 需要将imagePullPolicy属性设置为Always
+  * 如果是latest的tag，默认的imagePullPolicy就是Always, 其他的tag默认为IfNotPresent
+#### 9.2.3 为什么kubectl rolling-update 已经过时
+* 它会直接修改创建的对象。直接更新pod和ReplicationController并不符合之前的预期，
+* kubectl只是执行滚动升级过程中所有这些步骤的客户端。
+* 如果中途失去了网络连接，升级过程会被中断，pod和ReplicationController会停留在中间状态。
 
+### 9.3 使用Deployment声明式地升级应用
+* Deployment是一种更高级的资源，用于部署应用程序并以声明的方式升级应用。
+* 在升级应用时，需要引入额外一组ReplicationController，并协调两个RC，使它们在根据彼此不断修改，而不会造成干扰。Deployment资源就是负责来处理这个问题的。
+#### 9.3.1 创建一个Deployment
+#### 9.3.2 升级Deployment
+* 只需修改Deployment资源中定义的pod template
+* 不同的升级策略
+  * 默认是滚动更新，RollingUpdate
+  * Recreate: 一次性删除所有旧版本pod，然后创建新的pod
+* 减慢滚动升级速度
+  * minReadySeconds
+* 触发滚动升级
+  * 修改pod镜像
+  * kubectl set image deploy name image
+* 修改Deployment或其他资源的不同方式
+  * kubectl edit: 使用默认编辑器打开资源配置，修改保存并推出编辑器
+  * kubectl patch: 修改单个资源属性
+  * kubectl apply: 应用yaml中的新值来修改对象
+  * kubectl replace: 替换yaml中定义的对象，之前必须有yaml存在
+  * kubectl setimage: 修改镜像
+#### 9.3.3 回滚Deployment
+* kubectl rollout undo deployment name
+* 显示Deployment的滚动升级历史
+  * kubectl rollout history deployment name
+* 回滚到特定的Deployment版本
+  * kubectl rollout undo deployment name --to-revision=1
+#### 9.3.4 控制Deployment升级速率
+* maxSurge和maxUnavailable
+  * maxSurge: 升级时最多能超出Deployment里规定的副本量，可以是百分比或绝对值
+  * maxUnavailable: 升级时最多不可用pod的数量，可以是百分比或绝对值
+
+
+#### 9.3.5 暂停滚动升级
+* kubectl rollout pause deployment name
+* 一个新的pod会被创建，与此同时所有旧的pod还在运行，服务的一部分请求会被转发到新的pod。这样相当于发布了一个金丝雀版本。
+* 恢复滚动升级
+  * kubectl rollout resume deployment namespace
+#### 9.3.6 阻止出错版本的滚动升级
+* minReadySeconds的主要功能是避免部署出错版本的应用，而不是单纯地减慢部署速度。
+* minReadySeconds指定新创建的pod至少成功运行多久之后，才能将其视为可用。在pod可用之前，滚动升级的过程不会继续。
 ## 10 StatefulSet: 部署有状态的多副本应用
 
 ## 11 了解Kubernetes机理
