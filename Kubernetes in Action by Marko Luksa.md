@@ -753,7 +753,88 @@
 #### 11.6.1 让你的集群变得高可用
 #### 11.6.2 让Kubernetes控制平面变得高可用
 ## 12 Kubernetes API服务器的安全防护
+### 12.1 了解认证机制
+* API服务器可以配置一到多个认证的插件。API服务器接收到的请求会经过一个认证插件的列表，列表中的每个插件都可以检查这个请求和尝试确定谁在发送这个请求。
+* 有几个认证插件是直接可用的。它们用下列方法获取客户端的身份认证
+  * 客户端证书
+  * 传入在HTTP头中的认证token
+  * 基础的HTTP认证
+  * 其他
+#### 12.1.1 用户和组
+* 认证插件会返回已经认证过的用户名和组。Kubernetes不会在任何地方存储这些信息，这些信息被用来验证用户是否被授权执行某个操作。
+* 了解用户
+  * Kubernetes区分了两种连接到API服务器客户端
+    * 真实的用户（人）
+    * pod（运行在pod的用户）
+  * 用户被管理在外部系统中，例如单点登陆系统SSO
+  * pod使用service account机制，该机制被创建和存储在集群中作为ServiceAccount资源。
+* 了解组
+  * 正常用户和ServiceAccount都可以属于一个或多个组。组可以一次给多个用户授权。
+#### 12.1.2 ServiceAccount介绍
+* pod通过发送/var/run/secrets/kubernetes.io/serviceaccount/token文件内容来进行身份认证。这个文件通过加密卷挂载进每个容器的文件系统中。
+* 每个pod都与一个ServiceAccount相关联，它代表了运行在pod中应用程序的身份证明。
+* token文件持有ServiceAccount的认证token。应用程序使用这个token连接API服务器时，身份认证插件会对ServiceAccount进行身份认证，并将ServiceAccount的用户名传回API服务器内部。
+* ServiceAccount用户名格式
+  * system:serviceaccount:\<namespace>:\<service account name>
+* 了解ServiceAccount资源
+  * 作用在单个命名空间
+  * 每个pod都与一个ServiceAccount相关联，但是多个pod可以使用一个SA
+* ServiceAccount如何和授权绑定
+  * 在pod的manifest文件中，可以用指定账户名称的方式将一个SA赋值给一个pod。
+  * 如果不显示地指定SA名称，pod会使用在当前namespace的默认SA。
+  * API服务器通过管理员配置好的系统级别认证插件来获取这些信息。其中一个现成的授权插件是基于角色控制的插件（RBAC）。
+#### 12.1.3 创建ServiceAccount
+* 每个pod只应该读取它们所需要的东西。
+* 创建SA
+  * kubectl create serviceaccount foo
+* 了解SA上的可挂载密钥
+  * 默认情况下pod可以挂载任何密钥
+  * 设置只允许挂载SA中列出的密钥
+    * SA加入注解：kubernetes.io/enforce-mountable-secrets="true"
+#### 12.1.4 将SA分配给pod
+  * 在pod定义文件spec.serviceAccountName字段设置SA名称，必须在创建时设置，后续不能被修改。
+  * 使用自定义的SA token和API服务器通信
 
+### 12.2 了解认通过角色的权限控制加强集群安全
+#### 12.2.1 介绍RBAC授权插件
+* Kubernetes API服务器可以配置使用一个授权插件来检查是否允许用户请求得到的动作执行。因为API服务器对外暴露了REST接口，用户可以通过向服务器发送HTTP请求来执行动作，通过在请求中包含认证凭证来进行认证。
+* 了解动作
+  * 获取pod
+  * 创建服务
+  * 更新密钥
+* RBAC这样的授权插件运行在API服务器中，它会决定一个客户端是否允许在请求的资源上执行请求的动词。
+* 了解RBAC插件
+  * 将用户决策作为决定用户能否执行操作的关键因素。
+  * 主体（一个人，一个SA或者一组用户或一组SA）和一个和等多个角色相关联，每个角色被允许在特定资源上执行特定的动词。
+#### 12.2.2 RBAC资源
+* RBAC授权规则通过四种资源来进行配置，它们可以分为两个组
+  * Role/ClusterRole: 指定了在资源上可以执行哪些动词。
+  * RoleBinding/ClusterRoleBinding: 将上述角色绑定到特定用户、组或SA上。
+* 角色定义了可以做什么操作，而绑定定义了谁可以做这些操作
+* Role & RoleBinding: 命名空间级别资源
+* ClusterRole & ClusterRoleBinding: 集群级别资源
+#### 12.2.3 使用Role和RoleBinding
+* 绑定Role到SA
+  * 通过创建一个RoleBinding资源来实现将角色绑定到主体。
+* 在角色绑定中使用其他命名空间的SA
+  * 修改在foo命名空间中的RoleBinding并添加另一个pod的SA
+
+#### 12.2.4 使用ClusterRole和ClusterRoleBinding
+* 使用场景
+  * 跨不同命名空间访问资源
+  * 访问跨命名空间资源（Node, PV, NS等等）
+#### 12.2.5 了解默认的ClusterRole和ClusterRoleBinding
+* Kubernetes提供了一组默认的ClusterRole和ClusterRoleBinding，每次API服务器启动时都会更新它们。这保证了在你错误删除了角色和绑定或者Kubernetes的新版本使用了不同得到集群角色和绑定配置时，所有的默认角色和绑定都会被重新创建。
+* view, edit, admin and cluster-admin是最重要的角色，他们应该绑定到用户定义pod中得到SA上。
+* 用view ClusterRole允许对资源的只读访问。
+* 用edit ClusterRole允许对资源的修改。
+* 用admin ClusterRole赋予一个命名空间全部的控制权。
+* 用cluster-admin ClusterRole得到完全的控制。
+* 了解其他默认的CR
+  * 以system为前缀
+#### 12.2.6 理性地授予授权权限
+* 为每个pod创建特定的SA
+* 假设你的应用会被入侵
 ## 13 保障集群内节点和网络安全
 
 ## 14 计算资源管理
