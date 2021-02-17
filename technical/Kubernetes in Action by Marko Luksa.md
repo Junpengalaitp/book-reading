@@ -999,7 +999,62 @@
 #### 15.3.2 启动Cluster Autoscaler
 #### 15.3.3 限制集群缩容时的服务干扰
 ## 16 高级调度
+### 16.1 使用污点和容忍度阻止节点调度到特定节点
+#### 16.1.1 介绍污点和容忍度
+* 显示节点的污点信息
+  * kubectl describe node 
+* 显示pod的污点容忍度
+  * kubectl describe pod
+* 了解污点的效果
+  * NoSchedule: 如果pod没有容忍这些污点，pod则不能被调度到包含这些污点的节点上。
+  * PreferNoSchedule: NoSchedule的一个宽松版本，表示尽量阻止pod被调度到哦这个节点上，如果没有其他可用节点，还是会调用到这里。
+  * NoExecute: 前两者只会在调度期间起作用，NoExecute会影响正在节点上运行的pod，如果节点上添加了NoExecute污点，在节点上没有容忍度的pod会从这个节点上去除。
+#### 16.1.2 在节点上添加自定义污点
+* kubectl taint node
 
+#### 16.1.3 在pod上添加污点容忍度
+* spec.template.spec.tolerations
+
+#### 16.1.4 了解污点和污点容忍度的使用场景
+* 在调度时使用污点和容忍度
+* 配置节点失效后的pod重新调度最长等待时间
+
+### 16.2 使用节点亲缘性将pod调度到特定节点上
+* 对比节点亲缘性和节点选择器
+* 检查默认的节点标签
+  * failure-domain.beta.kubernetes.io/region: 节点所在的地理位置
+  * failure-domain.beta.kubernetes.io/zone: 节点所在的可用性区域
+  * kubernetes.io/hostname: 节点主机名
+#### 16.2.1 指定强制性节点亲缘性规则
+* spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoreDuringExecution.nodeSelectorTerms
+* 较长的节点亲缘性属性名的意义
+  * requiredDuringScheduling: 为了使pod能调度到该节点上，明确指出了该节点必须包含的标签。
+  * IgnoreDuringExecution: 不会影响已经在该节点上运行的pod
+* 了解节点选择器条件
+
+#### 16.2.2 调度pod时优先考虑某些节点
+* preferredDuringSchedulingIgnoredDuringExecution
+* 给节点加上标签
+* 指定优先级节点亲缘性规则
+* 了解节点优先级如何工作
+* 在一个包含两个节点的技巧中部署节点
+
+### 16.3 使用pod亲缘性与非亲缘性对pod进行协同部署
+#### 16.3.1 使用pod间亲缘性将多个pod部署在同一个节点上
+* spec.template.affinity.podAffinity.preferredDuringSchedulingIgnoredDuringExecution.[topologyKey:kubernetes.io/hostname].labelSelector.matchedLabels.app:backend
+  * 要求pod被调度到和其他包含app=backend标签的pod所在的相同节点上
+* 部署包含pod情缘性的pod
+* 了解调度器如何使用pod亲缘性规则
+#### 16.3.2 将pod部署在同一机柜、可用性区域或者地理区域
+* 在同一个可用性区域
+  * topologyKey: failure-domain.beta.kubernetes.io/zone
+* 同一地域
+  * topologyKey: failure-domain.beta.kubernetes.io/region
+* 了解topologyKey是如何工作的
+
+#### 16.3.3 表达情缘性优先级取代强制需求
+#### 16.3.4 利用pod的非亲缘性分开调度pod
+* podAntiAffinity
 ## 17 开发应用的最佳实践
 
 ## 18 Kubernetes应用扩展
