@@ -1056,5 +1056,152 @@
 #### 16.3.4 利用pod的非亲缘性分开调度pod
 * podAntiAffinity
 ## 17 开发应用的最佳实践
+### 17.1 集中一切资源
+* 典型Kubernetes应用
+  * 在开发者编写的应用manifests中定义
+    * Deployment
+      * Pod template
+        * Container
+          * Health probes
+          * Env variables
+          * Volume mounts
+          * Resource requests/limits
+      * Volume
+        * PersistentVolumeClaim
+        * ConfigMap
+    * StatefulSet
+    * DaemonSet
+    * Job
+    * CronJob
+    * Ingress
+    * Service
+  * 由集群管理员提前创建
+    * Service account
+    * Secret
+    * Storage Class
+    * LimitRange
+    * ResourceQuota
+  * 在运行时自动创建
+    * ReplicaSet
+      * pod (label selector)
+    * Persistent Volume
+    * Endpoint
+
+### 17.2 了解pod的生命周期
+* 可以将pod比作只运行单个应用的虚拟机，但pod可能随时被杀死。
+#### 17.2.1 应用必须料到会被杀死或者重新调度
+* 预料到本地IP和主机名会发生变化
+  * 大部分无状态应用都可以处理这种场景同时不会有副作用。
+  * 有状态的服务通常不能
+    * 使用StatefulSet
+    * 不应该依赖IP地址来构建彼此的关系，使用主机名
+* 预料到写入磁盘的数据会丢失
+* 使用存储卷来跨容器持久化数据
+#### 17.2.2 重新调度死亡或部分死亡的pod
+* ReplicaSet不关心pod是否死亡，只关心副本数量是否匹配
+#### 17.2.3 以固定顺序启动pod
+* 了解pod是如何启动的
+  * 你可以阻止一个主容器的启动，直到它的预置条件被满足。通过在pod中包含一个叫做init的容器来实现。
+* init容器介绍
+  * 可以用来初始化pod，通常意味着向容器存储卷中写入数据，然后将这个存储卷挂载到主容器中。
+  * 一个pod可以挂载任意数量的init容器。init容器是按顺序执行的，并且仅当最后一个init容器执行完毕才会去启动主容器。
+* 将init容器加入pod
+  * spec.initContainers
+* 处理pod内部依赖的最佳实践
+  * 构建一个无依赖应用
+  * 使用Readiness探针
+
+#### 17.2.4 增加生命周期钩子
+* 两种生命周期钩子
+  * 启动后(Post-start)
+  * 启动前(Pre-stop)
+* 都可以
+  * 在容器内部执行一个命令
+  * 向一个URL发送HTTP GET请求
+* 使用启动后容器生命周期钩子
+  * spec.containers[image.lifecycle.postStart.exec.command[""]]
+* 使用停止前容器生命周期钩子
+* 生命周期钩子是针对容器而不是pod
+#### 17.2.5 了解pod的关闭
+* pod的关闭是通过API服务器删除pod对象来触发的。当接收到HTTP DELETE请求后，API服务器还没有删除pod对象，而是给pod设置了一个deleteTimeStamp值。拥有这个值的pod就开始停止了。
+* 当Kubelet意识到需要终止pod的时候，它开始终止pod中的每个容器。它会给每个容器一定的时间来优雅地停止。这个时间叫作终止宽限期(Termination Grace Period)，每个pod可以单独配置。
+* 当终止进程开始之后，计时器就开始计时，按照顺序执行以下事件
+  * 执行停止前钩子（如果有），然后等待它执行完毕
+  * 向容器的主进程发送SIGTERM信号
+  * 等待容器优雅地关闭或者等待终止宽限期超时
+  * 如果容器主进程没有优雅地关闭，使用SIGKILL信号强制终止进程
+* 指定终止宽限期
+  * 终止宽限期可以通过pod中的spec.terminationGracePeriod
+* 在应用中合理地处理容器关闭操作
+* 将重要的关闭流程替换为专注于关闭流程的pod
+
+### 17.3 确保所有的客户端请求都得到了妥善处理
+* 确保所以的客服端请求都得到了妥善处理
+#### 17.3.1 在pod启动时避免客户端连接断开
+#### 17.3.2 在pod关闭时避免客户端连接断开
+* Kubernetes的组件都是运行在不同机器上的不同进程，并不是在一个庞大的单一进程。
+* 当API服务器接收到删除pod请求后，它首先修改了etcd中的状态并且把删除事件通知给观察者。其中的两个观察者就是Kubelet和端点控制器
+* 问题：在发送终止信号给pod后，pod仍然可以接收客户端请求。
+* 解决问题
+  * 给pod添加就绪探针
+  * 等待足够长的时间让所有的kube-proxy完成它们的工作。
+* 妥善关闭一个应用的步骤
+  * 等待几秒钟，然后停止接收新的连接
+  * 关闭所有没有请求过来的长连接
+  * 等待所有请求完成
+  * 完全关闭应用
+
+### 17.4 让应用在Kubernetes中方便运行和管理
+#### 17.4.1 构建可管理的容器镜像
+* 部署全新pod速度快要求镜像足够小且不包含任何无用的东西。
+* 如果使用GoLang构建应用，你的镜像除了应用可执行的二进制文件外不需要任何东西。
+* 在实践中，最小化构建应用非常难调试，因为缺少像ping, dig, curl等工具。
+#### 17.4.2 合理地给镜像打标签，正确地使用ImagePullPolicy
+* 使用latest标签会导致你无法回退到之前得到版本。
+* 使用latest或者其他可更改镜像的标签，imagePullPolicy必须设为Always, pod每次启动都要去连接镜像中心，并且当镜像中心无法连接到的时候，这个策略会导致pod无法启动。
+#### 17.4.3 使用多维度的资源标签
+* 资源所属的应用或者为服务的名称
+* 应用层级(前端，后段等)
+* 运行环境(开发、测试、预发布、生产等)
+* 版本号
+* 发布类型(稳定版、金丝雀等等)
+* 租户
+* 分片
+
+#### 17.4.4 通过注解描述每个资源
+* 资源至少应该包括一个描述资源的注解和一个描述资源负责人的注解
+* 在微服务架构中，pod应该包含一个注解来描述pod所依赖的其他服务名称
+
+
+#### 17.4.5 给进程终止提供更多的信息
+* 使用Kubernetes特性在pod状态中显示出容器终止的原因，让容器中的进程向容器文件系统中指定文件写入一个终止消息。
+* 默认路径为/dev/termination-logs，可以通过spec.containers.terminationMessagePath定义
+
+### 17.4.6 处理应用日志
+* 应用应该将日志写到标准输出终端而不是文件中。这样可以很容易地通过kubectl logs命令来查看应用日志。
+* 如果日志写入了文件系统
+  * kubectl exec \<pod> cat \<logfile>
+* 将日志或者其他文件复制到容器或者从容器中复制出来
+  * kubectl cp foo-pod:/var/log/foo.log foo.log
+  * kubectl cp localfile foo-pod:/etc/remotefile
+* 使用集中式日志记录
+* 处理多行日志输出
+
+### 17.5 开发和测试的最佳实践
+#### 17.5.1 开发过程中在k8s之外运行应用
+* 连接到后台服务
+* 连接到API服务器
+* 在开发过程中在容器内部运行应用
+
+#### 17.5.2 在开发过程中使用Minikube
+* 将本地文件挂载到Minikube VM然后再挂载到容器中
+* 在Minikube VM中使用Docker Daemon来构建镜像
+* 在本地构建镜像然后直接复制到Minikube VM中
+* 将Minikube和Kubernetes集群结合起来
+
+#### 17.5.3 发布版本和自动部署资源清单
+#### 17.5.4 使用Ksonnet作为编写YAML/JSON manifest文件的额外选择
+
+#### 17.5.5 利用持续集成和持续交付
 
 ## 18 Kubernetes应用扩展
