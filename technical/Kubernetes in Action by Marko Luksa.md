@@ -1205,3 +1205,60 @@
 #### 17.5.5 利用持续集成和持续交付
 
 ## 18 Kubernetes应用扩展
+### 18.1 定义自定义API对象
+#### 18.1.1 CustomResourceDefinitions介绍
+* 开发者只需向Kubernetes API服务器提交CRD对象，即可定义新的资源类型。
+* CRD范例介绍
+  * 集群用户不必处理pod、服务以及其他Kubernetes资源，甚至只需要确认网站域名以及网站中的文件(HTML, CSS, PNG等)就能以最简单的方式运行静态网站。
+  * 需要一个Git仓库当作这些文件的来源。当用户创建网站资源实例时，你希望Kubernetes创建一个新的web服务器pod，并通过服务将它公开。
+* 创建一个CRD对象
+* 创建自定义资源实例
+* 检索自定义资源实例
+* 删除自定义资源实例
+
+#### 18.1.2 使用自定义控制器自动定制资源
+* 了解网站控制器的功能
+* 将控制器作为pod运行
+* 观察运行中的控制器
+
+#### 18.1.3 验证自定义对象
+#### 18.1.4 为自定义对象提供自定义API服务器
+* API服务器聚合
+
+### 18.2 使用Kubernetes服务目录扩展Kubernetes
+#### 18.2.1 服务目录介绍
+#### 18.2.2 服务目录API服务器与控制器管理器介绍
+#### 18.2.3 Service代理和OpenServiceBroker API
+* OpenServiceBroker API
+* 在服务目录中注册代理
+* 罗列集群中的可用服务
+#### 18.2.4 提供服务与使用服务
+* 提供服务实例
+* 绑定服务实例
+* 在客户端pod中使用新创建的Secret
+#### 18.2.5 解除绑定与取消配置
+#### 18.2.6 服务目录给我们带来了什么
+
+### 18.3 基于Kubernetes搭建的平台
+#### 18.3.1 RedHat OpenShift
+* OpenShift容器平台中其他可用资源
+  * 除了Kubernetes中提供的所有可用API之外，OpenShift还提供了一些额外的API对象
+    * Users&Groups
+    * Projects
+    * Templates
+    * Buildconfigs
+    * DeploymentConfigs
+    * ImageStreams
+    * Routes
+* 使用构建配置通过源码构建镜像
+  * 通过将OpenShift集群指向包含应用程序源代码的Git存储库，用户能在OpenShift集群中快速构建和部署应用程序，不必亲自构建容器镜像。
+
+#### 18.3.2 Deis Workflow与Helm
+* Deis Workflow
+  * 可以部署到任何现有的Kubernetes集群中，在你运行Workflow时，它会创建一组Service和ReplicationController。
+  * 只需通过git push deis master推送更改就可以触发应用程序新版本更新，而剩余的工作都会由Workflow完成。
+* 通过Helm部署资源
+  * 一个Kubernetes包管理器，由两部分组成
+    * helm cli
+    * Tiller, Kubernetes集群内pod运行的服务组件
+  * 
