@@ -25,6 +25,27 @@
   * 与leader同步滞后的副本组成OSR(Out-of-Sync Replicas)。
   * AR = ISR + OSR, 理想情况为OSR = 0， AR = ISR
 
+## 1.4 服务端参数配置
+* 配置文件
+  * $KAFKA_HOME/config/server.properties
+
+* zookeeper.connect
+  * broker要连接的ZooKeeper集群服务器地址，没有默认值，为必填项。
+  * 多个节点的地址用逗号隔开
+  * 最佳实践是再加一个chroot路径，这样既可以明确指明该路径是Kafka所用的，也可以实现多个Kafka集群复用一套ZooKeeper集群
+
+* listeners
+  * 指明broker监听客户端连接的地址列表，即为客户端要连接broker的入口地址列表
+  * 格式为protocol1://hostname1:port1, protocol2://hostname2:port2，protocol代表协议类型，其支持的类型有PLAINTEXT，SSL，SASL_SSL等。
+
+* broker.id
+  * 用来指定Kafka集群中broker的唯一标识，默认值为-1。如果没有设置，那么Kafka会自动生成一个。
+
+* log.dir和log.dirs
+  * Kafka把所有的消息都保存在磁盘上，而这两个参数用来配置Kafka日志文件存放的根目录。
+
+* message.max.bytes
+  * 该参数用来指定broker所能接收消息的最大值，默认值为1000012，976.6KB
 # 第2章 生产者
 
 
