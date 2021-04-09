@@ -212,6 +212,45 @@
 
 
 # 第4章 主题和分区
+* 主题作为消息的归类，可以再细分为一个或多个分区，分区
+也可以看作对消息的二次归类 分区的划分不仅为 Kafka 提供了可伸缩性、水平扩展的功能，还通过多副本机制来为 Kafka 提供数据冗余以提高数据可靠性。
+* Kafka的底层实现来说，主题和分区都是逻辑上的概念，分区可以有一至多个副本，每
+个副本对应1个日志文件，每个日志文件对应一至多个日志分段（ LogSegment ），每个日志分
+段还可以细分为索引文件、日志存储文件和快照文件等 不过对于使用 Kafka 进行消息收发的
+普通用户而言，了解到分区这1层面足以应对大部分的使用场景。
+
+## 4.1 主题的管理
+* 创建主题
+* 查看主题信息
+* 删除主题
+* 通过kafka-topics.sh来执行操作，位于$KAFKA_HOME/bin/目录下
+* 还可以通过KafkaAdminClient方式实现
+
+### 4.1.1 创建主题
+* auto.create.topics.enable设置默认为true，当生产者向一个不存在的主题发送消息时，会自动创建一个分区数为num.partitions(默认1)，default.replication.factor(默认1)的主题。
+* 不推荐使用默认值，推荐使用kafka-topics.sh脚本创建
+* 创建了一个分区数为4副本因子为2的主题 
+  * bin/kafka-top cs .sh - zookeeper localhost: 2181/kafka 
+--create --topic top create --partitions 4 --replication-factor 2
+* 在执行完脚本之后， Kafka 会在 log.dir或log.dirs 参数所配置的目录下创建相应的主题分区，默认情况下这个目录为/tmp/kafka-logs/
+* 主题和分区都是提供给上层用户
+的抽象， 而在副本层面或更加确切地说是Log层面才有实际物理上的存在。同一个分区中的多个副本必须分布在不同的 broker 中，这样才能提供有效的数据冗余。
+* replica-assignment参数手动指定分区副本
+  * --replica-assignment \<String: broker_id_for_part1_replica1:broker_id_for_part1_replica2,broker_id_for_part2_replica1:broker_id_for_part2_replica2>
+* 同一个分区内的副本不能有重复，比如指定了0:0, 1:1这种，就会报 AdminCommandFailedException异常。
+* 0:1,,0:1,1:0跳过一个分区的行为也是不被允许的
+
+### 4.1.2 分区副本的分配
+* 生产者：为每条消息指定其所要发往的分区
+* 消费者：指定其可以消费消息的分区
+
+### 4.1.3 查看主题
+* list命令
+* describe命令
+  * --topics 指定多个主题
+  * --topics-with-overrides 找出所有包含覆盖配置的主题
+  * --under-replicated-partitions 找出包含失效副本的分区
+  * --unavailable-partitions 查看主题中没有leader的分区
 
 # 第5章 日志存储
 
