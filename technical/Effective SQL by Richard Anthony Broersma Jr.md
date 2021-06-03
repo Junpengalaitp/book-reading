@@ -137,3 +137,44 @@
 * COUNT(ALL + 表达式)对一组数据中的每一条记录求表达式的值，并返回非空值的数量
 * COUNT(DISTINCT + 表达式)对一组数据中的每一条记录求表示的值，并返回唯一的非空值
 
+## 第37条：知道如何使用窗口函数
+* 从OVER子句开始，表示在SUM()表达式上使用一个窗口
+* PARTITION BY: 指定如何划分窗口，如果省略它，你的数据库系统将在整个结果集上应用该函数
+* PATITION仅仅将分组应用于SUM()创建的窗口，并且是独立的，而GROUP BY将在整个查询中应用分组，并不允许和聚合的列应用
+* ORDER BY: 结果对返回行的顺序敏感
+
+## 第38条：创建行号与排名
+* 必须始终对ROW_NUMBER()、RANK()和其他排序函数进行窗口化，因此必须与相应的OVER子句一起出现
+* 考虑如何使用排序函数处理关联。如果你需要连续排名，应该使用DENSE_RANK()
+* ORDER BY谓词对于这类函数是强制性的，因为它会影响结果如何排序
+
+## 第39条：创建可移动聚合函数
+* RANGE, 三个有效的边界选项
+  * BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  * BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING 
+  * BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING 
+
+* 使用RANGE时，将当前行与其他行进行比较，并根据ORDER BY谓词分组
+* 可以用ROWS替代RANGE。除了以上三个，还提供了另外三个选项
+  * BETWEEN N PRECEDING AND CURRENT ROW
+  * BETWEEN CURRENT ROW AND N FOLLOWING
+  * BETWEEN N PRECEDING AND N FOLLOWING
+* 无论何时需要将窗口框架的边界更改为非默认设置，即使可选，也必须指定ORDER BY谓词
+* 如果需要为窗口框架定义任意大小，则必须使用ROWS,这样可以输入需要包含在窗口框架的前后几行
+* 可以选择RANGE逻辑分组行或ROWS物理偏移行。如果ORDER BY谓词不返回重复值，则两者的结果是等效的
+
+## 第40条：了解在何处使用子查询
+
+## 第41条：了解关联和非关联子查询的差异
+* 使用非关联子查询
+  * 在FROM子句中作为一个被过滤的数据集
+  * 在WHERE子句IN条件中作为单列数据集，或者在WHERE或HAVING子句的对比条件中作为单个值
+* 关联子查询
+  * 在WHERE或HAVING子句中使用一个或多个过滤器，并依赖外部查询提供的值
+
+## 第42条：尽可能使用公共表达式而不是子查询
+* 利用CTE，你可以简化多次使用相同子查询的复杂查询
+* CTE可以免除使用无意中更改的功能，而这样的修改会导致使用该函数的查询无法正常工作
+* 在同一SQL中，CTE允许你直接定于要嵌入到另一个查询中的子查询，这样也更容易理解
+* 虽然你可以使用递归CTE生成一些数据值，这些值可能在计数表中找到，但保存的计数表效率更高，因为你可以对其添加索引
+* 你可以使用递归CTE遍历层次关系，并以有意义的方式进行展示
