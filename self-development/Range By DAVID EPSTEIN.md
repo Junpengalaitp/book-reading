@@ -33,7 +33,34 @@
 * malpractice: improper, illegal, or negligent professional activity or treatment, especially by a medical practitioner, lawyer, or public official
   
 # CHAPTER 3: When Less of the Same Is More
-
+* extravagantly: with a lack of restraint in spending money or using resources
+* undergo: experience or be subjected to (something, typically something unpleasant, painful, or arduous)
+* anoint: smear or rub with oil, typically as part of a religious ceremony
+* concerto: a musical composition for a solo instrument or instruments accompanied by an orchestra, especially one conceived on a relatively large scale.
+* virtuoso: a person highly skilled in music or another artistic pursuit
+* staggering: deeply shocking; astonishing.
+* regale: entertain or amuse (someone) with talk
+* gondola: a light flat-bottomed boat used on Venetian canals, having a high point at each end and worked by one oar at the stern
+* choir: an organized group of singers, typically one that takes part in church services or performs regularly in public.
+* prodigy: a person, especially a young one, endowed with exceptional qualities or abilities.
+* prominent: important; famous
+* harpsichord: a keyboard instrument with horizontal strings which run perpendicular to the keyboard in a long tapering case, and are plucked by points of quill, leather, or plastic operated by depressing the keys. It is used chiefly in European classical music of the 16th to 18th centuries.
+* ducat: a gold coin formerly current in most European countries
+* grille: a grating or screen of metal bars or wires, placed in front of something as protection or to allow ventilation or discreet observation
+* desirous: having or characterized by desire
+* pester: trouble or annoy (someone) with frequent or persistent requests or interruptions
+* incessantly: without interruption; constantly.
+* amorous: showing, feeling, or relating to sexual desire.
+* trembling: shaking or quivering, typically as a result of anxiety, excitement, or frailty.
+* siren: a device that makes a loud prolonged sound as a signal or warning
+* plead: make an emotional appeal.
+* smallpox: an acute contagious viral disease, with fever and pustules usually leaving permanent scars. It was effectively eradicated through vaccination by 1979.
+* disfigure: spoil the attractiveness of
+* scarcely: only just; almost not
+* limping: the action of walking with difficulty, typically because of a damaged or stiff leg or foot.
+* ameliorate: make (something bad or unsatisfactory) better.
+* vibrant: full of energy and enthusiasm
+* syphilis: a chronic bacterial disease that is contracted chiefly by infection during sexual intercourse, but also congenitally by infection of a developing fetus.
 # CHAPTER 4: Learning, Fast and Slow
 
 # CHAPTER 5: Think Outside Experience
