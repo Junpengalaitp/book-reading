@@ -61,6 +61,24 @@
 * ameliorate: make (something bad or unsatisfactory) better.
 * vibrant: full of energy and enthusiasm
 * syphilis: a chronic bacterial disease that is contracted chiefly by infection during sexual intercourse, but also congenitally by infection of a developing fetus.
+* emancipation: the fact or process of being set free from legal, social, or political restrictions; liberation
+* endowment: the action of endowing something or someone.
+* swell: (especially of a part of the body) become larger or rounder in size, typically as a result of an accumulation of fluid.
+* penitence: the action of feeling or showing sorrow and regret for having done wrong; repentance
+* basin: a bowl for washing, typically attached to a wall and having faucets connected to a water supply; a washbasin.
+* foundling: an infant that has been abandoned by its parents and is discovered and cared for by others.
+* rigor: the quality of being extremely thorough, exhaustive, or accurate.
+* profane: (of a person or their behavior) not respectful of orthodox religious practice; irreverent
+* versatility: ability to adapt or be adapted to many different functions or activities.
+* menagerie: a collection of wild animals kept in captivity for exhibition.
+* papal: relating to a pope or to the papacy.
+* manuscript: a book, document, or piece of music written by hand rather than typed or printed.
+* atop: on the top of.
+* podium: a small platform on which a person may stand to be seen by an audience, as when making a speech or conducting an orchestra
+* exemplar: a person or thing serving as a typical example or excellent model.
+* permeate: spread throughout (something); pervade
+* agonize: undergo great mental anguish through worrying about something.
+* integral: necessary to make a whole complete; essential or fundamental.
 # CHAPTER 4: Learning, Fast and Slow
 
 # CHAPTER 5: Think Outside Experience
