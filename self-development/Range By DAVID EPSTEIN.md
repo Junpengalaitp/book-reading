@@ -79,6 +79,33 @@
 * permeate: spread throughout (something); pervade
 * agonize: undergo great mental anguish through worrying about something.
 * integral: necessary to make a whole complete; essential or fundamental.
+* ominously: in a way that suggests that something bad is going to happen.
+* linchpin: a person or thing vital to an enterprise or organization.
+* cult: a system of religious veneration and devotion directed toward a particular figure or object.
+* acoustic: relating to sound or the sense of hearing.
+* chord: a group of (typically three or more) notes sounded together, as a basis of harmony.
+* clarinet: a woodwind instrument with a single-reed mouthpiece, a cylindrical tube with a flared end, and holes stopped by keys.
+* adept: very skilled or proficient at something.
+* untiring: (of a person or their actions) continuing at the same rate without loss of vigor; indefatigable.
+* resurrection: the action or fact of resurrecting or being resurrected.
+* obstinate: stubbornly refusing to change one's opinion or chosen course of action, despite attempts to persuade one to do so.
+* reel: lose one's balance and stagger or lurch violently
+* exuberant: filled with or characterized by a lively energy and excitement.
+* fiddle: touch or fidget with something in a restless or nervous way
+* ragtime: music characterized by a syncopated melodic line and regularly accented accompaniment, evolved by black American musicians in the 1890s and played especially on the piano.
+* quintessential: representing the most perfect or typical example of a quality or class.
+* veterinary: relating to the diseases, injuries, and treatment of animals.
+* bracelet: an ornamental band, hoop, or chain worn on the wrist or arm.
+* artillery: large-caliber guns used in warfare on land.
+* thimble: a metal or plastic cap with a closed end, worn to protect the finger and push the needle in sewing.
+* accordion: a portable musical instrument with metal reeds blown by bellows, played by means of keys and buttons.
+* inferno: a large fire that is dangerously out of control.
+* fret: be constantly or visibly worried or anxious.
+* fuse: join or blend to form a single entity.
+* anthem: a rousing or uplifting song identified with a particular group, body, or cause.
+* transcribe: put (thoughts, speech, or data) into written or printed form.
+* hemorrhage: an escape of blood from a ruptured blood vessel, especially when profuse.
+
 # CHAPTER 4: Learning, Fast and Slow
 
 # CHAPTER 5: Think Outside Experience
