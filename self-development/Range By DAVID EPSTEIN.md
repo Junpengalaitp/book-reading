@@ -105,6 +105,14 @@
 * anthem: a rousing or uplifting song identified with a particular group, body, or cause.
 * transcribe: put (thoughts, speech, or data) into written or printed form.
 * hemorrhage: an escape of blood from a ruptured blood vessel, especially when profuse.
+* ruffled: (of a person's hair) disarranged.
+* shrubbery: shrubs collectively
+* prelude: an action or event serving as an introduction to something more important.
+* osmosis: a process by which molecules of a solvent tend to pass through a semipermeable membrane from a less concentrated solution into a more concentrated one, thus equalizing the concentrations on each side of the membrane.
+* adept: very skilled or proficient at something.
+* improv: improvisation, especially as a theatrical technique.
+* conservatory: a college for the study of classical music or other arts.
+* 
 
 # CHAPTER 4: Learning, Fast and Slow
 
