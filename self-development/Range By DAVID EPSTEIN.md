@@ -112,9 +112,25 @@
 * adept: very skilled or proficient at something.
 * improv: improvisation, especially as a theatrical technique.
 * conservatory: a college for the study of classical music or other arts.
-* 
+
 
 # CHAPTER 4: Learning, Fast and Slow
+* interject: say (something) abruptly, especially as an aside or interruption.
+* platoon: a subdivision of a company of soldiers, usually forming a tactical unit that is commanded by a lieutenant and divided into several sections.
+* surefire: certain to succeed.
+* vignette: a brief evocative description, account, or episode.
+* shrewd: having or showing sharp powers of judgment; astute.
+* interrogating: ask questions of (someone, especially a suspect or a prisoner) closely, aggressively, or formally.
+* staccato: performed with each note sharply detached or separated from the others.
+* litany: a series of petitions for use in church services or processions, usually recited by the clergy and responded to in a recurring formula by the people.
+* expedient: (of an action) convenient and practical although possibly improper or immoral.
+* voyage: a long journey involving travel by sea or in space.
+* soliciting: ask for or try to obtain (something) from someone.
+* chalkboard: blackboard
+* bewildered: perplexed and confused; very puzzled.
+* bestow: confer or present (an honor, right, or gift).
+
+
 
 # CHAPTER 5: Think Outside Experience
 
