@@ -129,7 +129,14 @@
 * chalkboard: blackboard
 * bewildered: perplexed and confused; very puzzled.
 * bestow: confer or present (an honor, right, or gift).
-
+* mirage: an optical illusion caused by atmospheric conditions, especially the appearance of a sheet of water in a desert or on a hot road caused by the refraction of light from the sky by heated air.
+* evaporate: turn from liquid into vapor
+* rift: a crack, split, or break in something.
+* impair: weaken or damage something (especially a human faculty or function).
+* cadet: a young trainee in the armed services or police force.
+* facilitate: make (an action or process) easy or easier.
+* interleave: insert pages, typically blank ones, between the pages of (a book).
+* hallmark: a mark stamped on articles of gold, silver, or platinum in Britain, certifying their standard of purity.
 
 
 # CHAPTER 5: Think Outside Experience
