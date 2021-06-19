@@ -140,7 +140,27 @@
 
 
 # CHAPTER 5: Think Outside Experience
-
+* celestial: positioned in or relating to the sky, or outer space as observed in astronomy.
+* ineffable: too great or extreme to be expressed or described in words.
+* planetary: relating to or belonging to a planet or planets.
+* censure: express severe disapproval of (someone or something), especially in a formal statement.
+* heretic: a person believing in or practicing religious heresy.
+* heresy: belief or opinion contrary to orthodox religious (especially Christian) doctrine
+* crystalline: having the structure and form of a crystal; composed of crystals.
+* dissipate: (with reference to a feeling or other intangible thing) disappear or cause to disappear.
+* precursor: a person or thing that comes before another of the same kind; a forerunner.
+* astounding: surprisingly impressive or notable.
+* emanate: (of something abstract but perceptible) issue or spread out from (a source).
+* whirlpool: a rapidly rotating mass of water in a river or sea into which objects may be drawn, typically caused by the meeting of conflicting currents.
+* surmise: suppose that something is true without having evidence to confirm it.
+* fusillade: a series of shots fired or missiles thrown all at the same time or in quick succession.
+* odor: a distinctive smell, especially an unpleasant one.
+* orator: a public speaker, especially one who is eloquent or skilled.
+* imbue: inspire or permeate with (a feeling or quality).
+* permeate: spread throughout (something); pervade.
+* fastidious: very attentive to and concerned about accuracy and detail.
+* meandering: following a winding course.
+* winding: a twisting movement or course.
 # CHAPTER 6: The Trouble with Too Much Grit
 
 # CHAPTER 7: Flirting with Your Possible Selves
