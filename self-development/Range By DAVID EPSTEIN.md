@@ -161,8 +161,42 @@
 * fastidious: very attentive to and concerned about accuracy and detail.
 * meandering: following a winding course.
 * winding: a twisting movement or course.
-# CHAPTER 6: The Trouble with Too Much Grit
+* stationary: not moving or not intended to be moved.
+* gesticulate: use gestures, especially dramatic ones, instead of speaking or to emphasize one's words.
+* tortoiseshell: the semitransparent mottled yellow and brown shell of certain turtles, typically used to make jewelry or ornaments.
+* clog: block or become blocked with an accumulation of thick, wet matter.
+* hydrant: a fixture in a street or other public place with a nozzle by which a hose may be attached to a water main
+* dampen: make slightly wet.
+* notorious: famous or well known, typically for some bad quality or deed.
+* realm: a kingdom
+* moviegoer: a person who goes to the movies, especially regularly.
+* preplexing: completely baffling; very puzzling
+* retrograde: directed or moving backward
+* contortions: a twisted or bent condition, state, or form.
+* minuscule: extremely small; tiny
+* imperfection: a fault, blemish, or undesirable feature
+* pinkie: the little finger.
+* dispense: manage without or get rid of
+* wilderness: an uncultivated, uninhabited, and inhospitable region.
+* molecular: relating to or consisting of molecules.
+* molecules: a group of atoms bonded together, representing the smallest fundamental unit of a chemical compound that can take part in a chemical reaction.
+* impromptu: done without being planned, organized, or rehearsed.
+* solitary: done or existing alone.
+* portrayal: a depiction of someone or something in a work of art or literature.
+* grapple: engage in a close fight or struggle without weapons; wrestle.
+* tenet: a principle or belief, especially one of the main principles of a religion or philosophy.
 
+  
+# CHAPTER 6: The Trouble with Too Much Grit
+* meander: (of a river or road) follow a winding course.
+* flounder: struggle or stagger helplessly or clumsily in water or mud.
+* sermon: a talk on a religious or moral subject, especially one given during a church service and based on a passage from the Bible.
+* thrust: push (something or someone) suddenly or violently in the specified direction.
+* opt: make a choice from a range of possibilities
+* adept: very skilled or proficient at something.
+* succinct: (especially of something written or spoken) briefly and clearly expressed.
+* punchy: having an immediate impact; forceful.
+* preaching: the delivery of a sermon or religious address to an assembled group of people, typically in church.
 # CHAPTER 7: Flirting with Your Possible Selves
 
 # CHAPTER 8: The Outsider Advantage
