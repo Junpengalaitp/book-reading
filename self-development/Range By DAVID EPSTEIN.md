@@ -197,6 +197,32 @@
 * succinct: (especially of something written or spoken) briefly and clearly expressed.
 * punchy: having an immediate impact; forceful.
 * preaching: the delivery of a sermon or religious address to an assembled group of people, typically in church.
+* liken: point out the resemblance of someone or something to.
+* downtrodden: oppressed or treated badly by people in power.
+* mineshaft: a deep narrow vertical hole, or sometimes a horizontal tunnel, that gives access to a mine.
+* exuberant: filled with or characterized by a lively energy and excitement.
+* exhort: strongly encourage or urge (someone) to do something.
+* pastor: a minister in charge of a Christian church or congregation.
+* itinerant: traveling from place to place.
+* catechist: a teacher of the principles of Christian religion, especially one using a catechism.
+* strive: make great efforts to achieve or obtain something.
+* whipsaw: a saw with a narrow blade and a handle at both ends, used typically by two people.
+* avow: assert or confess openly.
+* dispense: distribute or provide (a service or information) to a number of people.
+* depict: show or represent by a drawing, painting, or other art form.
+* peregrination: a journey, especially a long or meandering one.
+* impetuous: acting or done quickly and without thought or care.
+* slather: spread or smear (a substance) thickly or liberally.
+* cypress: an evergreen coniferous tree with small rounded woody cones and flattened shoots bearing small scale-like leaves.
+* swirl: move in a twisting or spiraling pattern.
+* relegation: the action of assigning to an inferior rank or position.
+* eponymous: (of a person) giving their name to something.
+* virtue: behavior showing high moral standards.
+* admonition: an act or action of admonishing; authoritative counsel or warning.
+* precarious: not securely held or in position; dangerously likely to fall or collapse.
+* agglomeration: a mass or collection of things; an assemblage.
+* plebe: a newly entered cadet or freshman, especially at a military academy.
+
 # CHAPTER 7: Flirting with Your Possible Selves
 
 # CHAPTER 8: The Outsider Advantage
