@@ -222,9 +222,18 @@
 * precarious: not securely held or in position; dangerously likely to fall or collapse.
 * agglomeration: a mass or collection of things; an assemblage.
 * plebe: a newly entered cadet or freshman, especially at a military academy.
+* colloquial: (of language) used in ordinary or familiar conversation; not formal or literary.
 
 # CHAPTER 7: Flirting with Your Possible Selves
-
+* protean: tending or able to change frequently or easily.
+* aviatrix: a female pilot.
+* festoon: adorn (a place) with ribbons, garlands, or other decorations.
+* glistening: shining with a sparkling light.
+* sinuous: having many curves and turns.
+* nascent: (especially of a process or organization) just coming into existence and beginning to display signs of future potential.
+* intolerable: unable to be endured.
+* partway: part of the way
+* surgical: relating to or used in surgery
 # CHAPTER 8: The Outsider Advantage
 
 # CHAPTER 9: Lateral Thinking Withered Technology
