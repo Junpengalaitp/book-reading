@@ -234,6 +234,15 @@
 * intolerable: unable to be endured.
 * partway: part of the way
 * surgical: relating to or used in surgery
+* entrench: establish (an attitude, habit, or belief) so firmly that change is very difficult or unlikely.
+* sculptural: relating to or resembling sculpture
+* revelation: a surprising and previously unknown fact, especially one that is made known in a dramatic way
+* sewage: waste water and excrement conveyed in sewers.
+* sanitation: conditions relating to public health, especially the provision of clean drinking water and adequate sewage disposal
+* proliferate: increase rapidly in numbers; multiply
+* bricolage: (in art or literature) construction or creation from a diverse range of available things.
+* assortment: a miscellaneous collection of things or people
+* smirk: smile in an irritatingly smug, conceited, or silly way.
 # CHAPTER 8: The Outsider Advantage
 
 # CHAPTER 9: Lateral Thinking Withered Technology
