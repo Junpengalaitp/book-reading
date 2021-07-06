@@ -244,6 +244,19 @@
 * assortment: a miscellaneous collection of things or people
 * smirk: smile in an irritatingly smug, conceited, or silly way.
 # CHAPTER 8: The Outsider Advantage
+* spectrometer: an apparatus used for recording and measuring spectra, especially as a method of analysis.
+* provision: the action of providing or supplying something for use
+* fret: be constantly or visibly worried or anxious
+* chronicler: a person who writes accounts of important or historical events
+* crock: an earthenware pot or jar
+* nuisance: a person, thing, or circumstance causing inconvenience or annoyance
+* epiphany: a moment of sudden revelation or insight
+* microbe: a microorganism, especially a bacterium causing disease or fermentation
+* dilettante: a person who cultivates an area of interest, such as the arts, without real commitment or knowledge
+* mire: cause to become stuck in mud
+* remediation: the action of remedying something, in particular of reversing or stopping environmental damage
+* slush: partially melted snow or ice.
+* chute: a sloping channel or slide for conveying things to a lower level
 
 # CHAPTER 9: Lateral Thinking Withered Technology
 
