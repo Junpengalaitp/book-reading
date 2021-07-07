@@ -257,9 +257,26 @@
 * remediation: the action of remedying something, in particular of reversing or stopping environmental damage
 * slush: partially melted snow or ice.
 * chute: a sloping channel or slide for conveying things to a lower level
-
+* tuberculosis: a disease caused by bacteria called Mycobacterium tuberculosis. The bacteria usually attack the lungs, but they can also damage other parts of the body. 
+* pharma: pharmaceutical companies collectively as a sector of industry.
+* dabble: immerse (one's hands or feet) partially in water and move them around gently.
+* wield: hold and use (a weapon or tool).
+* unremitting: never relaxing or slackening; incessant.
+* interdisciplinary: relating to more than one branch of knowledge.
+* torso: the trunk of the human body.
+* hurdle: one of a series of upright frames over which athletes in a race must jump
+* juxtaposition: the fact of two things being seen or placed close together with contrasting effect.
+* dystrophy: a disorder in which an organ or tissue of the body wastes away.
+* enzyme: a substance produced by a living organism which acts as a catalyst to bring about a specific biochemical reaction.
+* kinase: an enzyme that catalyzes the transfer of a phosphate group from ATP to a specified molecule.
+* clandestine: kept secret or done secretively, especially because illicit
+* colloquial: (of language) used in ordinary or familiar conversation; not formal or literary.
 # CHAPTER 9: Lateral Thinking Withered Technology
-
+* wither: (of a plant) become dry and shriveled
+* pachinko: a Japanese form of pinball
+* craze: an enthusiasm for a particular activity or object which appears suddenly and achieves widespread but short-lived popularity.
+* fleet: a group of ships sailing together, engaged in the same activity, or under the same ownership.
+* scold: remonstrate with or rebuke (someone) angrily
 # CHAPTER 10: Fooled by Experience
 
 # CHAPTER 11: Learning to Drop Your Familiar Tools
