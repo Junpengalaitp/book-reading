@@ -277,8 +277,18 @@
 * craze: an enthusiasm for a particular activity or object which appears suddenly and achieves widespread but short-lived popularity.
 * fleet: a group of ships sailing together, engaged in the same activity, or under the same ownership.
 * scold: remonstrate with or rebuke (someone) angrily
-# CHAPTER 10: Fooled by Experience
-
+* plummet: fall or drop straight down at high speed
+* grayscale: a range of gray shades from white to black, as used in a monochrome display or printout.
+* thwart: prevent (someone) from accomplishing something
+* comprises: consist of; be made up of
+* exquisite: extremely beautiful and, typically, delicate
+  
+# CHAPTER 10: Fooled by Expertise
+* erroneous: wrong; incorrect.
+* prestigious: inspiring respect and admiration; having high status.
+* dogmatic: inclined to lay down principles as incontrovertibly true.
+* ruinous: disastrous or destructive.
+* eminent: (of a person) famous and respected within a particular sphere or profession.
 # CHAPTER 11: Learning to Drop Your Familiar Tools
 
 # CHAPTER 12: Deliberate Amateurs
