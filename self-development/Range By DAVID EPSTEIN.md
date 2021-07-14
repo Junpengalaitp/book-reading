@@ -290,6 +290,15 @@
 * ruinous: disastrous or destructive.
 * eminent: (of a person) famous and respected within a particular sphere or profession.
 # CHAPTER 11: Learning to Drop Your Familiar Tools
+* gasket: a shaped piece or ring of rubber or other material sealing the junction between two surfaces in an engine or other device
+* jubilant: feeling or expressing great happiness and triumph.
+* tally: a current score or amount.
+* propel: drive, push, or cause to move in a particular direction, typically forward.
+* eerie: strange and frightening.
+* squash: crush or squeeze (something) with force so that it becomes flat, soft, or out of shape
+* erosion: the process of eroding or being eroded by wind, water, or other natural agents.
+* astray: away from the correct path or direction
+
 
 # CHAPTER 12: Deliberate Amateurs
 
