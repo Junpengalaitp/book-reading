@@ -298,7 +298,14 @@
 * squash: crush or squeeze (something) with force so that it becomes flat, soft, or out of shape
 * erosion: the process of eroding or being eroded by wind, water, or other natural agents.
 * astray: away from the correct path or direction
-
+* inadmissible: (especially of evidence in court) not accepted as valid.
+* chord: a group of (typically three or more) notes sounded together, as a basis of harmony.
+* meniscus: the curved upper surface of a liquid in a tube
+* cartilage: firm, whitish, flexible connective tissue found in various forms in the larynx and respiratory tract, in structures such as the external ear, and in the articulating surfaces of joints. It is more widespread in the infant skeleton, being replaced by bone during growth.
+* crescent: he curved sickle shape of the waxing or waning moon.
+* jigsaw: a puzzle consisting of a picture printed on cardboard or wood and cut into various pieces of different shapes that have to be fitted together.
+* thermodynamics: the branch of physical science that deals with the relations between heat and other forms of energy (such as mechanical, electrical, or chemical energy), and, by extension, of the relationships between all forms of energy.
+  
 
 # CHAPTER 12: Deliberate Amateurs
 
