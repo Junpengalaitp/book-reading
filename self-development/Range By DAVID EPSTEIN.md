@@ -308,5 +308,11 @@
   
 
 # CHAPTER 12: Deliberate Amateurs
+* stricture: a restriction on a person or activity.
+* sabbatical: a period of paid leave granted to a university teacher or other worker for study or travel, traditionally one year for every seven years worked
+* malaria: an intermittent and remittent fever caused by a protozoan parasite that invades the red blood cells. The parasite is transmitted by mosquitoes in many tropical and subtropical regions.
+* deemphasize: reduce the importance or prominence given to (something).
+* didactic: intended to teach, particularly in having moral instruction as an ulterior motive.
+
 
 # CONCLUSION: Expanding Your Range
