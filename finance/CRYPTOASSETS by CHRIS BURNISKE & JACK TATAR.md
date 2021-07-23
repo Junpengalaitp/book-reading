@@ -17,7 +17,11 @@
 
 ## Chapter 3. "Blockchain, Not Bitcoin?"
 * disruptor: a person or thing that interrupts an event, activity, or process by causing a disturbance or problem.
-
+* stratospheric: relating to the layer of the earth's atmosphere above the troposphere, extending to about 32 miles (50 km) above the earth's surface
+* trifecta: a bet in which the person betting forecasts the first three finishers in a race in the correct order.
+* expedite: make (an action or process) happen sooner or be accomplished more quickly.
+* panacea: a solution or remedy for all difficulties or diseases.
+* exuberant: filled with or characterized by a lively energy and excitement.
 ## Chapter 4. "The Taxonomy of Cryptoassets"
 
 ## Chapter 5. Cryptocommodities and Cryptotokens
