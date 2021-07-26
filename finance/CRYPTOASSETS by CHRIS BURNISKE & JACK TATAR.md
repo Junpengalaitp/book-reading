@@ -23,6 +23,8 @@
 * panacea: a solution or remedy for all difficulties or diseases.
 * exuberant: filled with or characterized by a lively energy and excitement.
 ## Chapter 4. "The Taxonomy of Cryptoassets"
+* taxonomy: the branch of science concerned with classification, especially of organisms; systematics.
+* barter: the action or system of exchanging goods or services without using money.
 
 ## Chapter 5. Cryptocommodities and Cryptotokens
 
