@@ -27,13 +27,18 @@
 * barter: the action or system of exchanging goods or services without using money.
 
 ## Chapter 5. Cryptocommodities and Cryptotokens
-
+* reminiscent: tending to remind one of something
+* egregious: outstandingly bad; shocking.
+* debacle: a sudden and ignominious failure; a fiasco
 # Part II WHY
 
 ## Chapter 6. The Importance of Portfolio Management and Alternative Assets
+* holistic: characterized by comprehension of the parts of something as intimately interconnected and explicable only by reference to the whole.
 
 ## Chapter 7. The Most Compelling Alternative Asset of the Twenty-First Century
-
+* pave: cover (a piece of ground) with concrete, asphalt, stones, or bricks; lay paving over.
+* propensity: an inclination or natural tendency to behave in a particular way.
+* tumultuous: making a loud, confused noise; uproarious
 ## Chapter 8. Defining Cryptoassets as a New Asset Class
 
 ## Chapter 9. The Evolution of Cryptoassets Market Behavior
