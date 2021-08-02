@@ -40,6 +40,7 @@
 * propensity: an inclination or natural tendency to behave in a particular way.
 * tumultuous: making a loud, confused noise; uproarious
 ## Chapter 8. Defining Cryptoassets as a New Asset Class
+* aesthetic: concerned with beauty or the appreciation of beauty
 
 ## Chapter 9. The Evolution of Cryptoassets Market Behavior
 
