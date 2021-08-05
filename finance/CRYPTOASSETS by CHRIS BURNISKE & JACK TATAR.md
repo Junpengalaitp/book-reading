@@ -45,7 +45,17 @@
 ## Chapter 9. The Evolution of Cryptoassets Market Behavior
 
 ## Chapter 10. The Speculation of Crowds and "This Time Is Different" Thinking
-
+* euphoric: characterized by or feeling intense excitement and happiness.
+* naysayer: a person who criticizes, objects to, or opposes something.
+* inaugural: marking the beginning of an institution, activity, or period of office.
+* scorn: the feeling or belief that someone or something is worthless or despicable; contempt.
+* denigrate: criticize unfairly; disparage.
+* inaugural: marking the beginning of an institution, activity, or period of office.
+* scapegoat: a person who is blamed for the wrongdoings, mistakes, or faults of others, especially for reasons of expediency.
+* abdicated: (of a monarch) renounce one's throne.
+* unscrupulous: having or showing no moral principles; not honest or fair.
+* exhortation: an address or communication emphatically urging someone to do something.
+* copious: abundant in supply or quantity.
 ## Chapter 11. "It's Just a Ponzi Scheme, Isn't It?"
 
 # Part II HOW
