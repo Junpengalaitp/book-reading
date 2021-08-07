@@ -56,6 +56,13 @@
 * unscrupulous: having or showing no moral principles; not honest or fair.
 * exhortation: an address or communication emphatically urging someone to do something.
 * copious: abundant in supply or quantity.
+* excruciate: torment (someone) physically or mentally.
+* insidious: proceeding in a gradual, subtle way, but with harmful effects.
+* ascent: a climb or walk to the summit of a mountain or hill. 
+* refute: prove (a statement or theory) to be wrong or false; disprove.
+* eloquent: fluent or persuasive in speaking or writing.
+* prophecy: a prediction.
+* rut: a long deep track made by the repeated passage of the wheels of vehicles. a habit or pattern of behavior that has become dull and unproductive but is hard to change
 ## Chapter 11. "It's Just a Ponzi Scheme, Isn't It?"
 
 # Part II HOW
